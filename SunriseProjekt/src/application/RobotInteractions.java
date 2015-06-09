@@ -15,12 +15,14 @@ public class RobotInteractions {
 	private Tool gripper;
 	private DigitalOutIOGroup digitOut;
 	private RobotMovements robot_movements;
+	private ObserverManager observer_manager;
 
 	
-	RobotInteractions(Tool _gripper, DigitalOutIOGroup _digitOut, RobotMovements _robot_movements) {
+	RobotInteractions(Tool _gripper, DigitalOutIOGroup _digitOut, RobotMovements _robot_movements, ObserverManager _observer_manager) {
 		gripper = _gripper;
 		digitOut = _digitOut;
 		robot_movements = _robot_movements;
+		observer_manager = _observer_manager;
 	}
 	
 	/**
@@ -73,10 +75,10 @@ public class RobotInteractions {
 	 * @param origin
 	 * @param destination
 	 */
-	public void placePieces(AbstractFrame origin, AbstractFrame destination, ObserverManager observermanager) {
+	public void placePieces(AbstractFrame origin, AbstractFrame destination) {
 		for (int i = 0; i < 9; i++) {
     		ForceCondition testForceForWaitCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 15.0);
-    		observermanager.waitFor(testForceForWaitCondition);
+    		observer_manager.waitFor(testForceForWaitCondition);
 			Frame new_origin = origin.copy();
 			new_origin.setX(new_origin.getX() + i * 25);
 			robot_movements.savePtpMove(new_origin);
@@ -86,5 +88,22 @@ public class RobotInteractions {
 		    close();
 		    robot_movements.savePtpMove(destination);
 		}
+	}
+	
+	/**
+	 * Method to move a game piece from one position to another
+	 * 
+	 * @param origin
+	 * @param destination
+	 */
+	public void movePiece(AbstractFrame origin, AbstractFrame destination) {
+		robot_movements.savePtpMove(origin);
+		open();
+		ICondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 7.5);
+	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
+	    close();
+	    robot_movements.savePtpMove(destination);
+	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
+	    open();
 	}
 }

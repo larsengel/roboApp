@@ -13,7 +13,7 @@ public class BoardPoints {
 		this.center =  _center.copy();
 		this.angle_board = _angle_board;
 		distance = 30;
-		points = new Frame[6][6];
+		points = new Frame[7][7];
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class BoardPoints {
 			points[1][1].setX(center.getX() + (0 			* Math.cos(angle_board) + (2 * distance * Math.sin(angle_board))));
 			points[1][1].setY(center.getY() + (-0 			* Math.sin(angle_board) + (2 * distance * Math.cos(angle_board))));
 			points[1][2] = new Frame();
-			points[2][2] = center.copy();
+			points[1][2] = center.copy();
 			points[1][2].setX(center.getX() + (-2*distance 	* Math.cos(angle_board) + (2 * distance * Math.sin(angle_board))));
 			points[1][2].setY(center.getY() + (-2*-distance * Math.sin(angle_board) + (2 * distance * Math.cos(angle_board))));
 			

@@ -54,8 +54,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		digitOut = new DigitalOutIOGroup(kuka_Sunrise_Cabinet_1);
 		gripper.attachTo(robot.getFlange());
 		robot_movements = new RobotMovements(gripper);	
-		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements);
-		
+		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements, getObserverManager());
 		}
 
 	public void run() {
