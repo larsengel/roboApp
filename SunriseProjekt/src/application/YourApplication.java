@@ -102,14 +102,6 @@ public class YourApplication extends RoboticsAPIApplication {
 					break;
 			}
 		}*/
-		
-		/*
-        for (int i = 1; i <= 9; i++) {
-    		ForceCondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 15.0);
-    		getObserverManager().waitFor(testForceCondition);
-    		robot_interactions.getPart(getApplicationData().getFrame("/pointA"));
-    		robot_interactions.putPart(getApplicationData().getFrame("/pointB"));
-        }*/
         
         //robot_interactions.placePieces(getApplicationData().getFrame("/piece_origin"), getApplicationData().getFrame("/pointB"), getObserverManager());
 		

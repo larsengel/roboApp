@@ -76,18 +76,7 @@ public class RobotInteractions {
 	 * @param destination
 	 */
 	public void placePieces(AbstractFrame origin, AbstractFrame destination) {
-		for (int i = 0; i < 9; i++) {
-    		ForceCondition testForceForWaitCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 15.0);
-    		observer_manager.waitFor(testForceForWaitCondition);
-			Frame new_origin = origin.copy();
-			new_origin.setX(new_origin.getX() + i * 25);
-			robot_movements.savePtpMove(new_origin);
-			open();
-			ICondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 7.5);
-		    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
-		    close();
-		    robot_movements.savePtpMove(destination);
-		}
+		//TODO write method to place the pieces at the beginning of game
 	}
 	
 	/**
