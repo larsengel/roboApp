@@ -1,0 +1,425 @@
+package application;
+
+import java.awt.Color;
+
+import application.mill.Controller.GameController.GameState;
+import application.mill.Controller.MainController;
+import application.mill.Interfaces.Token;
+import application.mill.Model.Buffer;
+import application.mill.Model.GameField;
+
+import com.kuka.common.ThreadUtil;
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
+
+import com.kuka.roboticsAPI.controllerModel.Controller;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.deviceModel.OperationMode;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.geometricModel.math.Matrix;
+import com.kuka.roboticsAPI.geometricModel.math.Vector;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
+
+import de.fh_kiel.cimtt.robotik.Board;
+import de.fh_kiel.cimtt.robotik.Gripper;
+import de.fh_kiel.cimtt.robotik.Movements;
+
+
+public class TestApplication extends RoboticsAPIApplication{
+	private Controller controller;
+	private LBR lbr;
+	private Tool tool;
+	Frame Pts1, Pts2, Pts3;
+	Gripper gripper;
+	Vector n;
+	Board myBoard;
+	int game;
+	double velocity = 0.4;
+	Movements Move;
+	// boolean exit;
+	
+	
+	public void initialize() {
+		controller = getController("KUKA_Sunrise_Cabinet_1");
+		lbr = (LBR) getRobot(controller,
+				"LBR_iiwa_7_R800_1");
+		tool = getApplicationData().createFromTemplate("Greifer");
+		tool.attachTo(lbr.getFlange());
+		
+		
+	}
+
+	public void run() {
+		
+		/** We can move faster, if operation mode is T1*/
+        if (OperationMode.T1 == lbr.getOperationMode())
+        {
+        	velocity = 1;
+        }
+        
+		/** Go to waiting position */
+		gripper = new Gripper(controller, tool);
+		
+		//lbr.move(ptp(getApplicationData().getFrame("/HOME")).setJointVelocityRel(velocity));
+		
+		/** Choose the game */
+		game = getApplicationUI().displayModalDialog(
+				ApplicationDialogType.QUESTION, "What game do you want to play ?", 
+					"1 : Draughts", 
+					"2 : Nine Men's Morris",
+					"exit the program");
+		
+		if (game == 2) return;
+		//t = false;
+		/**  create movements*/
+		Move = new Movements(getApplicationUI(), lbr, tool, game, gripper);
+		Init();
+		
+		//Move.LbrPtp(getApplicationData().getFrame("/HOME"), velocity);
+		
+		/** Calcul de la normale au plateau */
+		calculateNormal();
+		
+		myBoard = new Board(Pts1, Pts2, Pts3);
+		
+		Buffer<Integer[]> inputBuffer = new Buffer<Integer[]>();
+		
+		MainController gc = new MainController(inputBuffer, getApplicationUI());
+		int i = 0;
+		boolean AIPlayed = true;
+		boolean AIPlayedMill = true;
+		boolean AIPlayedTake = true;
+		gc.startGame();
+		//inputBuffer.write(new Integer[]{0, 0});
+		ThreadUtil.milliSleep(1000);
+		GameField field = new GameField();
+		
+		Integer[] lastTokenAdd = new Integer[]{0, 0};
+		Integer[] lastTokenRemove = new Integer[]{0, 0};
+		Integer[] lastTokenRemoveMill = new Integer[]{-1, 0};
+
+		// We are now in mode PLACE
+		while(i<9){
+			
+			//get human player move
+			//while((gc.getCurrentPlayerMain().getColor() == Token.BLACK) && (AIPlayed)){
+				if (!getHumanPlayerMove( "Where do you want to PLACE", inputBuffer, gc)) return;
+				gc.getGameField();
+			//	AIPlayed = false;
+			//}
+			
+			// if Mill (Human)
+			if ((gc.getGameStateMain() == GameState.TAKE) && (gc.getCurrentPlayerMain().getColor() == Token.BLACK) && (AIPlayedMill)){
+				System.out.println("Human Mill !!");
+				if (!getHumanPlayerMove( "Where do you want to TAKE", inputBuffer, gc)) return;
+				gc.getGameField();
+				//AIPlayedMill = false;
+			}
+			
+			// get AI's move
+			field = getAIMove(gc, lastTokenAdd, lastTokenRemove, field);
+			
+			System.out.println("TokenAdd : " + lastTokenAdd[0] + " " + lastTokenAdd[1]);
+			
+			System.out.println("TokenRemove : " + lastTokenRemove[0] + " " + lastTokenRemove[1]);
+			//AIPlayed = true;
+			//AIPlayedMill = true;
+			
+			// if Mill (Robot)
+			if ((gc.getGameStateMain() == GameState.TAKE) && (gc.getCurrentPlayerMain().getColor() == Token.WHITE)){
+				System.out.println("Robot Mill !!");
+				
+				field = getAIMoveMill(gc, lastTokenAdd, lastTokenRemoveMill, field);
+				
+				System.out.println("TokenRemoveMILL : " + lastTokenRemoveMill[0] + " " + lastTokenRemoveMill[1]);
+				//Move.Remove(lastTokenRemove, myBoard);
+			}
+
+			// Performe move
+			Move.move(lastTokenAdd, myBoard);
+			Move.Remove(lastTokenRemoveMill, myBoard);
+			lastTokenRemoveMill[0] = -1;
+			
+			// increment i
+		    i++;
+		    System.out.println("i = "+i);
+		}
+		
+		// We are now in mode MOVE
+		i = 0;
+		AIPlayed = true;
+		AIPlayedMill = true;
+		
+		while(gc.getGameStateMain() != GameState.WIN){
+			System.out.println("Phase Move");
+			//get human player move
+			//while((gc.getCurrentPlayerMain().getColor() == Token.BLACK) && (gc.getGameStateMain() == GameState.MOVE) && (AIPlayedTake)){
+				System.out.println("Move1");
+				if (!getHumanPlayerMove( "Where do you want to TAKE", inputBuffer, gc)) return;
+				//AIPlayedTake = false;
+			//}
+			
+			//while((gc.getCurrentPlayerMain().getColor() == Token.BLACK) && (gc.getGameStateMain() == GameState.MOVE) && (AIPlayed)){
+				System.out.println("Move2");
+				if (!getHumanPlayerMove( "Where do you want to PLACE", inputBuffer, gc)) return;
+				gc.getGameField();
+				//AIPlayed = false;
+			//}
+			
+			// if Mill (Human)
+			if ((gc.getGameStateMain() == GameState.TAKE) && (gc.getCurrentPlayerMain().getColor() == Token.BLACK) && (AIPlayedMill)){
+				System.out.println("Human Mill !!");
+				if (!getHumanPlayerMove( "Where do you want to TAKE", inputBuffer, gc)) return;
+				gc.getGameField();
+				//AIPlayedMill = false;
+			}
+			
+			// get AI's move
+			field = getAIMove(gc, lastTokenAdd, lastTokenRemove, field);
+			
+			System.out.println("TokenAdd : " + lastTokenAdd[0] + " " + lastTokenAdd[1]);
+			
+			System.out.println("TokenRemove : " + lastTokenRemove[0] + " " + lastTokenRemove[1]);
+			AIPlayed = true;
+			AIPlayedMill = true;
+			AIPlayedTake = true;
+			
+			// if Mill (Robot)
+			if ((gc.getGameStateMain() == GameState.TAKE) && (gc.getCurrentPlayerMain().getColor() == Token.WHITE)){
+				System.out.println("Robot Mill !!");
+				
+				field = getAIMoveMill(gc, lastTokenAdd, lastTokenRemoveMill, field);
+				
+				System.out.println("TokenRemoveMILL : " + lastTokenRemoveMill[0] + " " + lastTokenRemoveMill[1]);
+			}
+
+			// Performe move
+			Move.move(lastTokenRemove, lastTokenAdd, myBoard);
+			Move.Remove(lastTokenRemoveMill, myBoard);
+			lastTokenRemoveMill[0] = -1;
+			
+			// increment i
+		    i++;
+		    System.out.println("i = "+i);
+		}
+		
+		
+		
+		
+	}
+	
+	public boolean getHumanPlayerMove(String msg, Buffer<Integer[]> inputBuffer, MainController gc){
+		int I = 0,J = 0;
+		
+		I = getApplicationUI().displayModalDialog(
+				ApplicationDialogType.QUESTION, msg + " (on axe X) ?", 
+					"0", 
+					"1",
+					"2",
+					"3",
+					"4",
+					"5",
+					"6",
+					"exit program");
+		
+		if (I == 7){
+			return false;
+		}
+		
+		J = getApplicationUI().displayModalDialog(
+				ApplicationDialogType.QUESTION, msg + " (on axe Y) ?", 
+					"0", 
+					"1",
+					"2",
+					"3",
+					"4",
+					"5",
+					"6");
+		
+		// update myBoard
+		
+		int t1 = 0;
+		for (int i=0; i<myBoard.Position.size()-1; i++){
+			if ((myBoard.Position.get(i)[0] == I) && (myBoard.Position.get(i)[1] == J)){
+				t1 = i;
+			}
+		}
+		
+		myBoard.Piece.set(t1, 2);
+		//write buffer
+		
+		inputBuffer.write(new Integer[]{J,I});
+		
+		
+		return true;
+	}
+	
+	public GameField getAIMove(MainController gc, Integer[] lastTokenAdd, Integer[] lastTokenRemove, GameField field2){
+		
+		GameField field1;
+		GameField temp = gc.getGameField();
+		field1 = temp.getCopy();
+		
+		lastTokenAdd[0] = -1;
+		lastTokenRemove[0] = -1;
+		//System.out.println("OK");
+		for (int x=0; x<field1.getWidth(); x++){
+			for (int y=0; y<field1.getHeight(); y++){
+				if (field1.getBelongsToGame(x, y)){
+					//System.out.println("Boucle : "+field1.getToken(x, y) + ", x = " + x + ", y = " + y);
+					if ( (field1.getToken(x, y) != field2.getToken(x, y)) && (field1.getToken(x, y) == (Token.WHITE)) && (field2.getToken(x, y) == (Token.EMPTY))){
+						//System.out.println("OK1");
+						lastTokenAdd[0] = x;
+						lastTokenAdd[1] = y;
+						//System.out.println("OK2");
+					}
+					if ( (field1.getToken(x, y) != (field2.getToken(x, y))) && (field2.getToken(x, y) == (Token.WHITE)) && (field1.getToken(x, y) == (Token.EMPTY))){
+						//System.out.println("OK3");
+						lastTokenRemove[0] = x;
+						lastTokenRemove[1] = y;
+						
+						//System.out.println("OK4");
+					}
+				}
+			}
+		}
+		
+		return field1.getCopy();
+	}
+	
+public GameField getAIMoveMill(MainController gc, Integer[] lastTokenAdd, Integer[] lastTokenRemove, GameField field2){
+		
+		GameField field1;
+		GameField temp = gc.getGameField();
+		field1 = temp.getCopy();
+		
+		lastTokenRemove[0] = -1;
+		//System.out.println("OK");
+		for (int x=0; x<field1.getWidth(); x++){
+			for (int y=0; y<field1.getHeight(); y++){
+				if (field1.getBelongsToGame(x, y)){
+					if ( (field1.getToken(x, y) != (field2.getToken(x, y))) && (field2.getToken(x, y) == (Token.BLACK)) && (field1.getToken(x, y) == (Token.EMPTY))){
+						//System.out.println("OK3");
+						lastTokenRemove[0] = x;
+						lastTokenRemove[1] = y;
+						
+						//System.out.println("OK4");
+					}
+				}
+			}
+		}
+		
+		return field1.getCopy();
+	}
+	
+	public void Init(){
+				
+		Frame tmp = new Frame(0,0,0,0,0,0);
+		
+		Move.LbrPtp(getApplicationData().getFrame("/NE3"), 0.8*velocity);
+		tmp = getApplicationData().getFrame("/NE3").copy();
+		tmp.setZ(tmp.getZ()-300);
+		Pts2 = Move.ToolLinTouch(tmp, 0.5*velocity);
+		System.out.println("Pts2 = "+ Pts2);
+		Pts2 = copyXY(Pts2, getApplicationData().getFrame("/NE3"));
+		lbr.move(ptp(getApplicationData().getFrame("/NE3")).setJointVelocityRel(0.6*velocity));
+		
+		//
+		Move.LbrLin(getApplicationData().getFrame("/SE3"), 0.6*velocity);
+		tmp = getApplicationData().getFrame("/SE3").copy();
+		tmp.setZ(tmp.getZ()-300);
+		Pts3 = Move.ToolLinTouch(tmp, 0.5*velocity);
+		Pts3 = copyXY(Pts3, getApplicationData().getFrame("/SE3"));
+		lbr.move(ptp(getApplicationData().getFrame("/SE3")).setJointVelocityRel(0.6*velocity));
+		
+		//
+		Move.LbrLin(getApplicationData().getFrame("/NW3"), 0.6*velocity);
+		tmp = getApplicationData().getFrame("/NW3").copy();
+		tmp.setZ(tmp.getZ()-300);
+		Pts1 = Move.ToolLinTouch(tmp, 0.5*velocity);
+		Pts1 = copyXY(Pts1, getApplicationData().getFrame("/NW3"));
+		lbr.move(ptp(getApplicationData().getFrame("/NW3")).setJointVelocityRel(0.6*velocity));
+		
+		
+		
+	}
+	
+	public double[] movePerpendicular(int i){
+		
+		double m = 0;
+		double[] Angle = new double[3];
+		Vector d;
+		
+		if (i == 1){// East
+			d = Vector.of(Pts2.getX() - Pts3.getX(), Pts2.getY() - Pts3.getY(), Pts2.getZ() - Pts3.getZ()).normalize();
+		}
+		else {// Nord
+			d = Vector.of(Pts1.getX() - Pts2.getX(), Pts1.getY() - Pts2.getY(), Pts1.getZ() - Pts2.getZ()).normalize();
+		}
+		
+		System.out.println("i = " +i);
+		System.out.println("d = " +d);
+		System.out.println("n = " +n);
+		
+		//if (d.getZ() < 0) m = Math.PI/2;
+		Angle[0] = m - Math.atan2(d.getY(),d.getZ()) ;
+		m = 0;
+		
+		//if (d.getZ() < 0) m = Math.PI/2;
+		Angle[1] = m - Math.atan2(d.getZ(),d.getX());
+		m = 0;
+
+		//if (d.getX() < 0) m = Math.PI/2;
+		Angle[2] = m - Math.atan2(d.getX(),d.getY());
+		m = 0;
+		
+		//if (i == 0) m = Math.PI/2;
+		//Angle[0] = Angle[0] - Math.atan2(n.getY(),n.getZ()) + Math.PI/2;
+		
+		for (int l=0; l<3; l++){
+			System.out.println("Angle[" +l+ "] = " +Angle[l]);
+		}
+		
+		return Angle;
+		//tool.getDefaultMotionFrame().move(linRel(0,0,0,C,B,A).setJointVelocityRel(0.2));
+	}
+	
+	public void calculateNormal(){
+		Vector ones = Vector.of(-100, -100, -100);
+		
+		Vector VecX = Vector.of(Pts1.getX(), Pts2.getX(), Pts3.getX());
+		Vector VecY = Vector.of(Pts1.getY(), Pts2.getY(), Pts3.getY());
+		Vector VecZ = Vector.of(Pts1.getZ(), Pts2.getZ(), Pts3.getZ());
+		
+		
+		Matrix M = Matrix.ofColumns(VecX, VecY, VecZ);
+		n = M.invert().multiply(ones).normalize();
+		System.out.println("n = " +n);
+		
+	}
+
+	public Frame copyXY(Frame P1, ObjectFrame objectFrame){
+		
+		Frame P = new Frame(0,0,0,0,0,0);
+		
+		P.setX(objectFrame.getX());
+		P.setY(objectFrame.getY());
+		P.setZ(P1.getZ());
+		P.setAlphaRad(objectFrame.getAlphaRad());
+		P.setBetaRad(objectFrame.getBetaRad());
+		P.setGammaRad(objectFrame.getGammaRad());
+		
+		return P;
+	}
+	
+	/**
+	 * Auto-generated method stub. Do not modify the contents of this method.
+	 */
+	public static void main(String[] args) {
+		TestApplication app = new TestApplication();
+		app.runApplication();
+	}
+}

@@ -1,0 +1,4 @@
+//org.eclipse.ui.commands/state/com.kuka.safety.configuration.templateView.ToggleSafetyOrientationFrameCommand/org.eclipse.ui.commands.toggleState=true
+//org.eclipse.ui.commands/state/com.kuka.safety.configuration.templateView.ToggleSafetyToolVelocityOrientationCommand/org.eclipse.ui.commands.toggleState=true
+//org.eclipse.ui.commands/state/com.kuka.safety.configuration.templateView.ToggleSafetyToolVelocityPointCommand/org.eclipse.ui.commands.toggleState=true
+eclipse.preferences.version=1

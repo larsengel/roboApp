@@ -1,0 +1,77 @@
+/*    
+    Copyright (C) 2012 http://software-talk.org/ (developer@software-talk.org)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package application.mill.Model;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * this class provides an queue to store a list of elements.
+ */
+public class Queue<E> {
+
+    private LinkedList<E> content;
+
+    /**
+     * creates an new, empty queue.
+     */
+    public Queue() {
+        this.content = new LinkedList<E>();
+    }
+    /**
+     * adds an element to the queue.
+     * @param elem the element to add
+     */
+    public synchronized void write(E elem) {
+        content.addLast(elem);
+        this.notify();
+    }
+    
+    public synchronized void writeWithoutNotification(E elem) {
+        content.addFirst(elem);
+        //this.notify();
+    }
+    /**
+     * reads an element of the queue. If the queue is empty, the thread
+     * will be sleep until a element is written to the queue.
+     * @return the element at first position in the queue.
+     */
+    public synchronized E read() {
+        if (content.isEmpty()) {
+            try {
+                this.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Queue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return content.pollFirst();
+    }
+    /**
+     * clears the content and creates an new empty queue.
+     */
+    public synchronized void clear() {
+        content = new LinkedList<E>();
+    }
+    /**
+     * wake all sleeping thread up.
+     */
+    public synchronized void wakeUp() {
+        this.notifyAll();
+    }
+}

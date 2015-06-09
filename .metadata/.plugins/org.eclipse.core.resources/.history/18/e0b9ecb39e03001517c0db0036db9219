@@ -1,0 +1,307 @@
+/*    
+    Copyright (C) 2012 http://software-talk.org/ (developer@software-talk.org)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package application.mill.Model;
+
+import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * this class provides a lot of options for the game.
+ * @version 1.0.2
+ */
+public final class OptionObject implements Serializable {
+
+    public static final boolean DEBUG = false;
+
+    public static boolean playWithDiagonalLines;
+    private boolean playerOneIsComputer;
+    private boolean playerTwoIsComputer;
+    private Color backgroundColor;
+    private Color lineColor;
+    private Color playerOneColor;
+    private Color playerTwoColor;
+    private Color textAreaBackgroundColor;
+    private Color textColor;
+    private int numberOfStones;
+
+    // TODO add this field below
+    public static int drawAfter = 50; // number of turns till draw. a turn is defined as a move move (not place or take)
+
+    /**
+     * makes a new <code>OptionObject</code> with
+     * default values.
+     */
+    public OptionObject() {
+        if (DEBUG) {
+            setDebug();
+        } else {
+            loadOptions();
+        }
+    }
+
+    private void setDebug() {
+        playWithDiagonalLines = false;
+        playerOneIsComputer = false;
+        playerTwoIsComputer = true;
+        backgroundColor = new Color(139, 69, 19);
+        setTextAreaBackgroundColor(new Color(139, 69, 19));
+        setTextColor(Color.WHITE);
+        lineColor = Color.BLACK;
+        playerOneColor = Color.BLACK;
+        playerTwoColor = Color.WHITE;
+        numberOfStones = 18;
+    }
+
+    /**
+     * sets all values to the default,.
+     */
+    public void setDefault() {
+        playWithDiagonalLines = false;
+        playerOneIsComputer = false;
+        playerTwoIsComputer = true;
+        backgroundColor = new Color(139, 69, 19);
+        setTextAreaBackgroundColor(new Color(139, 69, 19));
+        setTextColor(Color.WHITE);
+        lineColor = Color.BLACK;
+        playerOneColor = Color.BLACK;
+        playerTwoColor = Color.WHITE;
+        numberOfStones = 18;
+    }
+
+    public int getNumberOfStones() {
+        return numberOfStones;
+    }
+
+    public void setNumberOfStones(int numberOfStones) {
+        this.numberOfStones = numberOfStones;
+    }
+
+    /**
+     * retusn the backgroundcolor of the gamefield.
+     * @return the backgroundcolor
+     */
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    /**
+     * sets which color is the backgroundcolor of the gamefield.
+     * @param backgroundColor
+     */
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    /**
+     * returns the color of the lines of the gamefield.
+     * @return the line color
+     */
+    public Color getLineColor() {
+        return lineColor;
+    }
+
+    /**
+     * sets which is the color of the painted lines in the gamefield.
+     * @param lineColor 
+     */
+    public void setLineColor(Color lineColor) {
+        this.lineColor = lineColor;
+    }
+
+    /**
+     * returns if the game should be played with diagonal lines.
+     * @return true if it should played with diagonal lines, else false.
+     */
+    public boolean isPlayWithDiagonalLines() {
+        return playWithDiagonalLines;
+    }
+
+    /**
+     * sets if the game should be played with diagonal lines.
+     * @param playWithDiagonalLines 
+     */
+    public void setPlayWithDiagonalLines(boolean playWithDiagonalLines) {
+        this.playWithDiagonalLines = playWithDiagonalLines;
+    }
+
+    /**
+     * returns the color of the first player.
+     * In these case it means the <code>java.awt.Color</code>
+     * @return the color of the first player.
+     */
+    public Color getPlayerOneColor() {
+        return playerOneColor;
+    }
+
+    /**
+     * sets the color of the first player.
+     * In these case it means the <code>java.awt.Color</code>
+     */
+    public void setPlayerOneColor(Color playerOneColor) {
+        this.playerOneColor = playerOneColor;
+    }
+
+    /**
+     * checks if the player one should be a ai.
+     * @return
+     */
+    public boolean isPlayerOneComputer() {
+        return playerOneIsComputer;
+    }
+
+    /**
+     * sets if the player one should be a ai.
+     * @param playerOneIsComputer 
+     */
+    public void setPlayerOneAsComputer(boolean playerOneIsComputer) {
+        this.playerOneIsComputer = playerOneIsComputer;
+    }
+
+    /**
+     * returns the color of the second player.
+     * In these case it means the <code>java.awt.Color</code>
+     * @return the color of the second player.
+     */
+    public Color getPlayerTwoColor() {
+        return playerTwoColor;
+    }
+
+    /**
+     * sets the color of the second player.
+     * In these case it means the <code>java.awt.Color</code>
+     */
+    public void setPlayerTwoColor(Color playerTwoColor) {
+        this.playerTwoColor = playerTwoColor;
+    }
+
+    /**
+     * checks if the player two should be a ai.
+     * @return
+     */
+    public boolean isPlayerTwoComputer() {
+        return playerTwoIsComputer;
+    }
+
+    /**
+     * sets if the player one should be a ai.
+     * @param playerOneIsComputer 
+     */
+    public void setPlayerTwoAsComputer(boolean playerTwoIsComputer) {
+        this.playerTwoIsComputer = playerTwoIsComputer;
+    }   
+
+    /**
+     * saves the options to the filedisk at a file names "options.op"
+     * in the same directory of the game.
+     */
+    public void saveOptions() {
+        {
+            ObjectOutputStream savingOptions = null;
+            try {
+                OutputStream saving = null;
+                saving = new FileOutputStream("options.op");
+                savingOptions = new ObjectOutputStream(saving);
+                savingOptions.writeBoolean(playWithDiagonalLines);
+                savingOptions.writeObject(this);
+            } catch (IOException ex) {
+            } finally {
+                try {
+                    savingOptions.close();
+                } catch (IOException ex) {
+                }
+            }
+        }
+    }
+
+    /**
+     * loads the options object from a file. If no file exists it create a
+     * file names "options.op" and make a default option object.
+     */
+    public void loadOptions() {
+        InputStream is = null;
+        try {
+            is = new FileInputStream("options.op");
+            ObjectInputStream input = new ObjectInputStream(is);
+            this.setPlayWithDiagonalLines(input.readBoolean());
+            OptionObject loadedOptions = (OptionObject) input.readObject();
+            this.backgroundColor = loadedOptions.getBackgroundColor();
+            this.lineColor = loadedOptions.getLineColor();
+            this.playerOneColor = loadedOptions.getPlayerOneColor();
+            this.playerTwoColor = loadedOptions.getPlayerTwoColor();
+            this.playerOneIsComputer = loadedOptions.isPlayerOneComputer();
+            this.playerTwoIsComputer = loadedOptions.isPlayerTwoComputer();
+            this.textAreaBackgroundColor = loadedOptions.getTextAreaBackgroundColor();
+            this.textColor = loadedOptions.getTextColor();
+            this.numberOfStones = loadedOptions.getNumberOfStones();
+            is.close();
+            input.close();
+            // if no options file exists:
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(OptionObject.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            try {
+                ObjectOutputStream newOptionsOOS = null;
+                OutputStream newOptionsOS = null;
+                newOptionsOS = new FileOutputStream("options.op");
+                newOptionsOOS = new ObjectOutputStream(newOptionsOS);
+                setDefault();
+                newOptionsOOS.writeObject(this);
+                newOptionsOOS.close();
+                newOptionsOS.close();
+            } catch (IOException ex1) {
+            }
+
+        }
+    }
+
+    /**
+     * @return the textAreaBackgroundColor
+     */
+    public Color getTextAreaBackgroundColor() {
+        return textAreaBackgroundColor;
+    }
+
+    /**
+     * @param textAreaBackgroundColor the textAreaBackgroundColor to set
+     */
+    public void setTextAreaBackgroundColor(Color textAreaBackgroundColor) {
+        this.textAreaBackgroundColor = textAreaBackgroundColor;
+    }
+
+    /**
+     * @return the textColor
+     */
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    /**
+     * @param textColor the textColor to set
+     */
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
+}

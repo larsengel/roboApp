@@ -1,0 +1,212 @@
+package de.fh_kiel.cimtt.robotik;
+
+//import java.awt.Color;
+import java.util.ArrayList;
+
+//import application.mill.Interfaces.GameException;
+//import application.mill.Interfaces.ModelInterface;
+//import application.mill.Interfaces.Token;
+
+import com.kuka.roboticsAPI.geometricModel.Frame;
+
+public class Board {
+
+	// Attributs
+	public ArrayList<Frame> ListePts = new ArrayList<Frame>();
+	public ArrayList<Integer> Piece = new ArrayList<Integer>(); // if == 0 empty / if == 1 -> wight / if == -> 2 black / if == -> 3 two white / if == 4 -> two black
+	public ArrayList<Integer[]> Position = new ArrayList<Integer[]>();
+	
+	
+	// Constructor
+	public Board(Frame NW3, Frame NE3, Frame SE3){
+		
+		Frame O = addFrame(NW3,SE3,1,1);
+		Frame SW3 = symFrame(O, NE3);
+		Frame N3 = addFrame(NW3,NE3,1,1);
+		Frame E3 = addFrame(NE3,SE3,1,1);
+		Frame S3 = addFrame(SW3,SE3,1,1);
+		Frame W3 = addFrame(NW3,SW3,1,1);
+		
+		Frame N2 = addFrame(N3,O,65,35);
+		Frame E2 = addFrame(E3,O,65,35);
+		Frame S2 = addFrame(S3,O,65,35);
+		Frame W2 = addFrame(W3,O,65,35);
+		
+		Frame NE2 = addFrame(NE3,O,65,35);
+		Frame SE2 = addFrame(SE3,O,65,35);
+		Frame SW2 = addFrame(SW3,O,65,35);
+		Frame NW2 = addFrame(NW3,O,65,35);
+		
+		Frame N1 = addFrame(N3,O,30,70);
+		Frame E1 = addFrame(E3,O,30,70);
+		Frame S1 = addFrame(S3,O,30,70);
+		Frame W1 = addFrame(W3,O,30,70);
+		
+		Frame NE1 = addFrame(NE3,O,30,70);
+		Frame SE1 = addFrame(SE3,O,30,70);
+		Frame SW1 = addFrame(SW3,O,30,70);
+		Frame NW1 = addFrame(NW3,O,30,70);
+		
+		Frame newToken1 = symFrame(NW3,N3);
+		Frame newToken2 = symFrame(W3,O);
+		Frame newToken3 = symFrame(SW3,S3);
+		
+		Frame RemoveToken1 = symFrame(NE3,N3);
+		Frame RemoveToken2 = symFrame(E3,O);
+		Frame RemoveToken3 = symFrame(SE3,S3);
+		//System.out.println("newTokenFrame = "+newToken);
+		
+		
+		ListePts.add(N1);
+		ListePts.add(N2);
+		ListePts.add(N3);
+		
+		ListePts.add(NE1);
+		ListePts.add(NE2);
+		ListePts.add(NE3);
+		
+		ListePts.add(E1);
+		ListePts.add(E2);
+		ListePts.add(E3);
+		
+		ListePts.add(SE1);
+		ListePts.add(SE2);
+		ListePts.add(SE3);
+		
+		ListePts.add(S1);
+		ListePts.add(S2);
+		ListePts.add(S3);
+		
+		ListePts.add(SW1);
+		ListePts.add(SW2);
+		ListePts.add(SW3);
+		
+		ListePts.add(W1);
+		ListePts.add(W2);
+		ListePts.add(W3);
+		
+		ListePts.add(NW1);
+		ListePts.add(NW2);
+		ListePts.add(NW3);
+		
+		ListePts.add(O);
+		
+		ListePts.add(newToken1);
+		ListePts.add(newToken2);
+		ListePts.add(newToken3);
+		
+		ListePts.add(RemoveToken1);
+		ListePts.add(RemoveToken2);
+		ListePts.add(RemoveToken3);
+		
+		ListePts = upPts(ListePts, 30);
+		
+		
+		
+		for (int i=0; i<ListePts.size(); i++){
+			Piece.add(0);
+		}
+		
+		for (int i=4; i<6; i++){
+			Piece.set(ListePts.size()-i, 1);
+		}
+		
+		// N1
+		Position.add(new Integer[]{3, 4});
+		// N2
+		Position.add(new Integer[]{3, 5});
+		// N3
+		Position.add(new Integer[]{3, 6});
+		
+		// NE1
+		Position.add(new Integer[]{4, 4});
+		// NE2
+		Position.add(new Integer[]{5, 5});
+		// NE3
+		Position.add(new Integer[]{6, 6});
+		
+		// E1
+		Position.add(new Integer[]{4, 3});
+		// E2
+		Position.add(new Integer[]{5, 3});
+		// E3
+		Position.add(new Integer[]{6, 3});
+		
+		// SE1
+		Position.add(new Integer[]{4, 2});
+		// SE2
+		Position.add(new Integer[]{5, 1});
+		// SE3
+		Position.add(new Integer[]{6, 0});
+		
+		// S1
+		Position.add(new Integer[]{3, 2});
+		// S2
+		Position.add(new Integer[]{3, 1});
+		// S3
+		Position.add(new Integer[]{3, 0});
+		
+		// SW1
+		Position.add(new Integer[]{2, 2});
+		// SW2
+		Position.add(new Integer[]{1, 1});
+		// SW3
+		Position.add(new Integer[]{0, 0});
+		
+		// W1
+		Position.add(new Integer[]{2, 3});
+		// W2
+		Position.add(new Integer[]{1, 3});
+		// W3
+		Position.add(new Integer[]{0, 3});
+		
+		// NW1
+		Position.add(new Integer[]{2, 4});
+		// NW2
+		Position.add(new Integer[]{1, 5});
+		// NW3
+		Position.add(new Integer[]{0, 6});
+		
+
+	}
+	
+	
+	// Methods
+	public Frame addFrame(Frame P1, Frame P2, double alpha, double beta){
+		
+		Frame P = new Frame(0,0,0,0,0,0);
+		P.setX((alpha*(P1.getX()) + beta*(P2.getX()))/(Math.abs(alpha) + Math.abs(beta)));
+		P.setY((alpha*(P1.getY()) + beta*(P2.getY()))/(Math.abs(alpha) + Math.abs(beta)));
+		P.setZ((alpha*(P1.getZ()) + beta*(P2.getZ()))/(Math.abs(alpha) + Math.abs(beta)));
+		P.setAlphaRad(P2.getAlphaRad());
+		P.setBetaRad(P2.getBetaRad());
+		P.setGammaRad(P2.getGammaRad());
+		
+		return P;
+	}
+	
+	public Frame symFrame(Frame P1, Frame P2){
+		
+		Frame P = new Frame(0,0,0,0,0,0);
+		P.setX((2*P1.getX()) - P2.getX());
+		P.setY((2*P1.getY()) - P2.getY());
+		P.setZ((2*P1.getZ()) - P2.getZ());
+		P.setAlphaRad(P2.getAlphaRad());
+		P.setBetaRad(P2.getBetaRad());
+		P.setGammaRad(P2.getGammaRad());
+		
+		return P;
+	}
+	
+	public ArrayList<Frame> upPts(ArrayList<Frame> ListePts, double val){
+		for (int i=0; i<ListePts.size(); i++){
+			Frame P = ListePts.get(i).copy();
+			P.setZ(P.getZ() + val);
+			ListePts.set(i, P);
+		}
+		
+		return ListePts;
+	}
+	
+
+}

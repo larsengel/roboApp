@@ -1,0 +1,461 @@
+package de.fh_kiel.cimtt.robotik;
+
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
+
+import application.TestApplication;
+import application.mill.Model.GameField;
+
+import com.kuka.common.ThreadUtil;
+import com.kuka.roboticsAPI.conditionModel.ForceCondition;
+import com.kuka.roboticsAPI.conditionModel.ICondition;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
+import com.kuka.roboticsAPI.uiModel.IApplicationUI;
+
+public class Movements extends TestApplication{
+	
+	/** Attributs*/
+	int ImpParam = 0, valMax = 20, dist = 5;
+	IApplicationUI appUI;
+	LBR lbr;
+	Tool tool;
+	int colorCarring = 0;
+	int game;
+	Gripper gripper;
+	
+	/** Constructor*/
+	public Movements(IApplicationUI appUI, LBR lbr, Tool tool, int game, Gripper gripper){
+		this.appUI = appUI;
+		this.lbr = lbr;
+		this.tool = tool;
+		this.game = game;
+		this.gripper = gripper;
+	}
+	
+	
+	/** Methods*/
+	public void LbrPtp(Frame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = lbr.move(ptp(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				LbrPtp(frame, velocity);
+			}
+		}
+	}
+	
+	public void LbrPtp(ObjectFrame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = lbr.move(ptp(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				LbrPtp(frame, velocity);
+			}
+		}
+	}
+	
+	public void ToolPtp(Frame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = tool.getDefaultMotionFrame().move(ptp(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				ToolPtp(frame, velocity);
+			}
+		}
+	}
+	
+	public void ToolPtp(ObjectFrame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = tool.getDefaultMotionFrame().move(ptp(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				ToolPtp(frame, velocity);
+			}
+		}
+	}
+	
+	public void LbrLin(Frame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = lbr.move(lin(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				LbrLin(frame, velocity);
+			}
+		}
+	}	
+	
+	public void LbrLin(ObjectFrame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = lbr.move(lin(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				LbrLin(frame, velocity);
+			}
+		}
+	}
+	
+	public void ToolLin(Frame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = tool.getDefaultMotionFrame().move(lin(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				ToolLin(frame, velocity);
+			}
+		}
+	}
+	
+	public Frame ToolLinTouch(Frame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = tool.getDefaultMotionFrame().move(lin(frame).setCartVelocity(50*velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			return f1;
+		}
+		return null;
+	}
+	
+	public Frame ToolLinTouch(ObjectFrame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = tool.getDefaultMotionFrame().move(lin(frame).setCartVelocity(50*velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			return f1;
+		}
+		return null;
+	}
+	
+	public void ToolLin(ObjectFrame frame, double velocity){
+		Frame f0 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+		ICondition forceCon = ForceCondition.createSpatialForceCondition(tool.getDefaultMotionFrame(), valMax);
+		IMotionContainer motionCon = tool.getDefaultMotionFrame().move(lin(frame).setJointVelocityRel(velocity).breakWhen(forceCon));
+		IFiredConditionInfo firedInfo = motionCon.getFiredBreakConditionInfo();
+		if(firedInfo != null){
+			Frame f1 = lbr.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+			double d = f0.distanceTo(f1);
+			Frame P = addFrame(f1,f0,d-dist,dist);
+			lbr.move(ptp(P).setJointVelocityRel(0.6*velocity));
+			
+			ImpParam = appUI.displayModalDialog(
+					ApplicationDialogType.QUESTION, "Should I continue ?", 
+						"1 : Yes", 
+						"2 : No",
+						"exit the program");
+			
+			if (ImpParam == 0){
+				ToolLin(frame, velocity);
+			} // end if (ImpParam == 0)
+		} // end if (firedInfo != null)
+	}// end method ToolLin()
+	
+	public Frame addFrame(Frame P1, Frame P2, double alpha, double beta){
+		
+		Frame P = new Frame(0,0,0,0,0,0);
+		P.setX((alpha*(P1.getX()) + beta*(P2.getX()))/(alpha + beta));
+		P.setY((alpha*(P1.getY()) + beta*(P2.getY()))/(alpha + beta));
+		P.setZ((alpha*(P1.getZ()) + beta*(P2.getZ()))/(alpha + beta));
+		P.setAlphaRad(P2.getAlphaRad());
+		P.setBetaRad(P2.getBetaRad());
+		P.setGammaRad(P2.getGammaRad());
+		
+		return P;
+	}
+	
+	public boolean take(int num, Board myBoard){
+		//synchronized(foo) {
+		Frame P = new Frame(myBoard.ListePts.get(num));
+		int color = new Integer(myBoard.Piece.get(num));
+		
+		double h = 29;
+		if (num == myBoard.ListePts.size()-1) h += 1.6;
+		int ImpParam = 0;
+		
+		if (num != myBoard.ListePts.size()-1){
+			if (color != 0){
+				
+				if ((color != 1) && (color != 2) && (game == 0)){
+					h = 21;
+					color = color - 2;
+					colorCarring = color;
+				}
+				else{
+					colorCarring = color;
+					color = 0;
+				}
+			}
+			else{
+				colorCarring = appUI.displayModalDialog(ApplicationDialogType.QUESTION, "What is the color of this piece ?", "Black", "White") + 1;
+				ImpParam = appUI.displayModalDialog(
+						ApplicationDialogType.QUESTION, "There is nothing to take here, do you want to take anyway?", 
+							"1 : Yes", 
+							"2 : No");
+			}
+		}
+		else {
+			colorCarring = 1;
+		}
+		
+		if (ImpParam == 0){
+			myBoard.Piece.set(num, color);
+			
+			
+			/*double[] Angle;
+			
+			if ((num == 0) || (num == 7) || (num == 8) || (num == 12) || (num == 18) || (num == 19)){
+				Angle = movePerpendicular(1);
+			}
+			else {
+				Angle = movePerpendicular(0);
+			}
+			System.out.println("angleA = "+ (P.getAlphaRad() + Angle[2])%(Math.PI/4));
+			System.out.println("angleB = "+ (P.getBetaRad() + Angle[1])%(Math.PI/4));
+			System.out.println("angleC = "+ (P.getGammaRad() + Angle[0])%(Math.PI/2));
+			P.setAlphaRad((Angle[2])%(Math.PI/4));
+			P.setBetaRad(( Angle[1])%(Math.PI/4));
+			P.setGammaRad((Angle[0])%(Math.PI/4));
+			P.setZ(P.getZ() - 200);*/
+			
+			
+			Frame tmp = new Frame(P);
+			
+			ToolPtp(P, 0.3);
+			tmp.setZ(tmp.getZ() + h);
+			gripper.open();
+			ToolLin(tmp, 0.05);
+			gripper.close();
+			ToolLin(P, 0.05);
+
+			return true;
+		}
+		
+
+		return false;
+		
+	//}
+	}
+	
+	public boolean place(int num, Board myBoard){
+		Frame P = new Frame(myBoard.ListePts.get(num));
+		int color = new Integer(myBoard.Piece.get(num));
+
+		double h = 29;
+		
+		if (color != 0){
+			h = 21;
+			
+			if (game == 1){
+				appUI.displayModalDialog(ApplicationDialogType.ERROR, "There is too much pireces here !", "OK");
+				return false;
+			}
+			if ((color != 1) && (color != 2)){
+				appUI.displayModalDialog(ApplicationDialogType.ERROR, "There is too much pireces here !", "OK");
+				return false;
+			}
+			
+			if (colorCarring != color){
+				appUI.displayModalDialog(ApplicationDialogType.ERROR, "The Pieces' colors are not the same !", "OK");
+				return false;
+			}
+			color = color + 2;
+		}
+		else{
+			color = colorCarring;
+		}
+		
+		colorCarring = 0;
+		
+		myBoard.Piece.set(num, color);
+		
+		/*double[] Angle;
+		
+		if ((num == 0) || (num == 7) || (num == 8) || (num == 12) || (num == 18) || (num == 19)){
+			Angle = movePerpendicular(1);
+		}
+		else {
+			Angle = movePerpendicular(0);
+		}
+		System.out.println("angleA = "+ (P.getAlphaRad() + Angle[2])%(Math.PI/4));
+		System.out.println("angleB = "+ (P.getBetaRad() + Angle[1])%(Math.PI/4));
+		System.out.println("angleC = "+ (P.getGammaRad() + Angle[0])%(Math.PI/2));
+		P.setAlphaRad((Angle[2])%(Math.PI/4));
+		P.setBetaRad(( Angle[1])%(Math.PI/4));
+		P.setGammaRad((Angle[0])%(Math.PI/4));
+		P.setZ(P.getZ() - 200);*/
+		
+		Frame tmp = new Frame(P);
+		
+		ToolPtp(P, 0.3);
+		tmp.setZ(tmp.getZ() + h);
+		ToolLin(tmp, 0.05);
+		gripper.open();
+		ToolLin(P, 0.05);
+		gripper.close();
+		
+		
+		return true;
+
+	}
+	
+	public void move(Integer[] token1, Integer[] token2, Board myBoard){
+		if (token1[0] != -1){
+			int t1 = 0, t2 = 0;
+			for (int i=0; i<myBoard.Position.size()-1; i++){
+				if ((myBoard.Position.get(i)[0] == token1[0]) && (myBoard.Position.get(i)[1] == token1[1])){
+					t1 = i;
+				}
+			}
+			
+			for (int i=0; i<myBoard.Position.size()-1; i++){
+				if ((myBoard.Position.get(i)[0] == token2[0]) && (myBoard.Position.get(i)[1] == token2[1])){
+					t2 = i;
+				}
+			}
+			
+			moveToken(myBoard, t1, t2);
+		}
+		
+	}
+	
+	public void move(Integer[] token1, Board myBoard){
+		if (token1[0] != -1){
+			int t1 = 0;
+			//System.out.println("Begin Move");
+			for (int i=0; i<myBoard.Position.size()-1; i++){
+				if ((myBoard.Position.get(i)[0] == token1[0]) && (myBoard.Position.get(i)[1] == token1[1])){
+					t1 = i;
+				}
+			}
+			
+			moveToken(myBoard, myBoard.ListePts.size()-1, t1);
+		}
+	}
+	
+	public void Remove(Integer[] token1, Board myBoard){
+		if (token1[0] != -1){
+			int t1 = 0;
+			//System.out.println("Begin Move");
+			for (int i=0; i<myBoard.Position.size()-1; i++){
+				if ((myBoard.Position.get(i)[0] == token1[0]) && (myBoard.Position.get(i)[1] == token1[1])){
+					t1 = i;
+				}
+			}
+			
+			moveToken(myBoard, t1, myBoard.ListePts.size()-1);
+		}
+	}
+	
+	public void moveToken(Board myBoard, int t1, int t2){
+		//System.out.println("Begin Move Token");
+		take(t1, myBoard);
+		place(t2, myBoard);
+	}
+	
+} // end class

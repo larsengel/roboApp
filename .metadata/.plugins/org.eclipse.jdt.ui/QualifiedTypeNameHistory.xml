@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.controllerModel.Controller"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Frame"/>
+<fullyQualifiedTypeName name="de.fh_kiel.cimtt.robotik.movements"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.ObjectFrame"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.controllerModel.sunrise.conditions.SunriseConditionObserver"/>
+<fullyQualifiedTypeName name="application.mill.Interfaces.ModelInterface"/>
+<fullyQualifiedTypeName name="application.mill.Interfaces.GameException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.deviceModel.LBR"/>
+<fullyQualifiedTypeName name="application.mill.Interfaces.Move"/>
+<fullyQualifiedTypeName name="de.fh_kiel.cimtt.robotik.Movements"/>
+<fullyQualifiedTypeName name="de.fh_kiel.cimtt.robotik.Board"/>
+<fullyQualifiedTypeName name="application.TestApplication"/>
+<fullyQualifiedTypeName name="application.mill.Controller.MainController.DrawingProcessor"/>
+<fullyQualifiedTypeName name="application.mill.Controller.GameController.GameState"/>
+<fullyQualifiedTypeName name="application.mill.Model.MyPlayerInterface"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="de.fh_kiel.cimtt.robotik.Gripper"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Tool"/>
+<fullyQualifiedTypeName name="application.mill.Model.Buffer"/>
+<fullyQualifiedTypeName name="application.mill.Controller.MainController"/>
+<fullyQualifiedTypeName name="application.mill.Model.GameField"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.publishing.common.ncf.serialization.json.Token"/>
+<fullyQualifiedTypeName name="application.mill.Interfaces.Token"/>
+</qualifiedTypeNameHistroy>

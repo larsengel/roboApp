@@ -1,0 +1,82 @@
+package application;
+
+
+import application.mill.Controller.MainController;
+import application.mill.Interfaces.Token;
+import application.mill.Model.Buffer;
+import application.mill.Model.GameField;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
+import com.kuka.roboticsAPI.controllerModel.Controller;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+
+import de.fh_kiel.cimtt.robotik.Gripper;
+
+/**
+ * Implementation of a robot application.
+ * <p>
+ * The application provides a {@link RoboticsAPITask#initialize()} and a 
+ * {@link RoboticsAPITask#run()} method, which will be called successively in 
+ * the application lifecycle. The application will terminate automatically after 
+ * the {@link RoboticsAPITask#run()} method has finished or after stopping the 
+ * task. The {@link RoboticsAPITask#dispose()} method will be called, even if an 
+ * exception is thrown during initialization or run. 
+ * <p>
+ * <b>It is imperative to call <code>super.dispose()</code> when overriding the 
+ * {@link RoboticsAPITask#dispose()} method.</b> 
+ * 
+ * @see #initialize()
+ * @see #run()
+ * @see #dispose()
+ */
+public class YourApplication extends RoboticsAPIApplication {
+	private Controller controller;
+	private LBR lbr;
+	private Tool tool;
+	Gripper gripper;
+
+	public void initialize() {
+		controller = getController("KUKA_Sunrise_Cabinet_1");
+		lbr = (LBR) getDevice(controller,
+				"LBR_iiwa_7_R800_1");
+	}
+
+	public void run() {
+		//We declare a new Gripper
+		gripper = new Gripper(controller, tool);
+		
+		//Open and close the gripper
+		gripper.open();
+		gripper.close();
+		
+		//We declare a new Buffer
+		Buffer<Integer[]> inputBuffer = new Buffer<Integer[]>();
+		
+		// 
+		MainController gc = new MainController(inputBuffer, getApplicationUI());
+		
+		// Starting the game
+		gc.startGame();
+		
+		GameField field = new GameField();
+		
+		//We get the current field
+		field = gc.getGameField();
+		
+		Token token = field.getToken(0, 0); //We get the Token on (0, 0)
+		// Token = EMPTY or WHITE or BLACK
+		
+		//We write in the Buffer to give the human moves to the Artificial Intelligence
+		inputBuffer.write(new Integer[]{0, 0}); //The human player played on (0, 0)
+	}
+
+	/**
+	 * Auto-generated method stub. Do not modify the contents of this method.
+	 */
+	public static void main(String[] args) {
+		YourApplication app = new YourApplication();
+		app.runApplication();
+	}
+}
