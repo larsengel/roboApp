@@ -89,5 +89,8 @@ public class BoardPoints {
 	public Frame[][] getPoints() {
 		return points;
 	}
+	public Frame getCenter() {
+		return center;
+	}
 
 }

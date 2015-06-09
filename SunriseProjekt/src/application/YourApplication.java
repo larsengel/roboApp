@@ -19,6 +19,7 @@ import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 /**
  * Implementation of a robot application.
@@ -75,9 +76,32 @@ public class YourApplication extends RoboticsAPIApplication {
 		for (Frame[] arr2: board_points.getPoints()) {
 		    for (Frame val: arr2) {
 		    	robot_movements.savePtpMove(val);
-				ThreadUtil.milliSleep(00);
+				ThreadUtil.milliSleep(100);
 		    }		    	
 		}		
+		
+		while(true) {
+			int direction = getApplicationUI().displayModalDialog(
+					ApplicationDialogType.QUESTION, "Where do you want to go to?", 
+					"Center", "Corner1", "Corner2", "Corner3", "Corner4");
+			switch (direction) {
+				case 0:
+			    	robot_movements.savePtpMove(board_points.getCenter());
+					break;
+				case 1:
+			    	robot_movements.savePtpMove(board_points.getPoint(0,0));
+					break;
+				case 2:
+			    	robot_movements.savePtpMove(board_points.getPoint(0,2));
+					break;
+				case 3:
+			    	robot_movements.savePtpMove(board_points.getPoint(6,0));
+					break;
+				case 4:
+			    	robot_movements.savePtpMove(board_points.getPoint(6,2));
+					break;
+			}
+		}
 		
 		/*
         for (int i = 1; i <= 9; i++) {
