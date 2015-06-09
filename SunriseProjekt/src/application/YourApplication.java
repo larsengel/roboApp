@@ -80,7 +80,7 @@ public class YourApplication extends RoboticsAPIApplication {
 				ThreadUtil.milliSleep(100);
 		    }		    	
 		}		
-		
+		/*
 		while(true) {
 			int direction = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Where do you want to go to?", 
@@ -102,7 +102,7 @@ public class YourApplication extends RoboticsAPIApplication {
 			    	robot_movements.savePtpMove(board_points.getPoint(6,2));
 					break;
 			}
-		}
+		}*/
 		
 		/*
         for (int i = 1; i <= 9; i++) {
