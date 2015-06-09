@@ -70,6 +70,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		gc.startGame();
 		
 		board_points = new BoardPoints(getApplicationData().getFrame("/board_center"), 0);
+		board_points.calculateBoard();
 		
 		for (Frame[] arr2: board_points.getPoints()) {
 		    for (Frame val: arr2) {
@@ -89,9 +90,6 @@ public class YourApplication extends RoboticsAPIApplication {
         //robot_interactions.placePieces(getApplicationData().getFrame("/piece_origin"), getApplicationData().getFrame("/pointB"), getObserverManager());
 		
 		/** Those commands are just examples */
-		// Open and close the gripper
-		// gripper.open();
-		// gripper.close();
 
 		// GameField field = new GameField();
 

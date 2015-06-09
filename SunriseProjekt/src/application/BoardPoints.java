@@ -53,7 +53,6 @@ public class BoardPoints {
 			points[3][4].setX(center.getX() + (-2*distance 	* Math.cos(angle_board) + (0 * Math.sin(angle_board))));
 			points[3][4].setY(center.getY() + (-2*-distance * Math.sin(angle_board) + (0 * Math.cos(angle_board))));
 			points[3][5].setX(center.getX() + (-3*distance 	* Math.cos(angle_board) + (0 * Math.sin(angle_board))));
-			points[3][5].setY(center.getY() + (-3*-distance * Math.sin(angle_board) + (0 * Math.cos(angle_board))));
 			
 			points[4][0].setX(center.getX() + (1*distance 	* Math.cos(angle_board) + (-1 * distance * Math.sin(angle_board))));
 			points[4][0].setY(center.getY() + (1*-distance 	* Math.sin(angle_board) + (-1 * distance * Math.cos(angle_board))));
