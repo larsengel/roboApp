@@ -20,8 +20,6 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 
-import de.fh_kiel.cimtt.robotik.Gripper;
-
 /**
  * Implementation of a robot application.
  * <p>
@@ -76,7 +74,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		for (Frame[] arr2: board_points.getPoints()) {
 		    for (Frame val: arr2) {
 		    	robot_movements.savePtpMove(val);
-				ThreadUtil.milliSleep(500);
+				ThreadUtil.milliSleep(00);
 		    }		    	
 		}		
 		
