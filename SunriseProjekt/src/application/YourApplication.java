@@ -74,13 +74,15 @@ public class YourApplication extends RoboticsAPIApplication {
 		
 		for (Frame[] arr2: board_points.getPoints()) {
 		    for (Frame val: arr2) {
-		    	getLogger().info("X: " + val.getX() + ", Y: " + val.getY());
-		    	robot_movements.savePtpMove(val);
-				ThreadUtil.milliSleep(100);
+		    	if (val != null) {
+			    	getLogger().info("X: " + val.getX() + ", Y: " + val.getY());
+			    	robot_movements.savePtpMove(val);
+					ThreadUtil.milliSleep(100);
+		    	}
 		    }		    	
 		}		
-		/*
-		while(true) {
+		
+		/*while(true) {
 			int direction = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Where do you want to go to?", 
 					"Center", "Corner1", "Corner2", "Corner3", "Corner4");
