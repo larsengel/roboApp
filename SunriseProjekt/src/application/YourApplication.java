@@ -82,31 +82,20 @@ public class YourApplication extends RoboticsAPIApplication {
 		    }		    	
 		}		
 		
-		/*while(true) {
-			int direction = getApplicationUI().displayModalDialog(
-					ApplicationDialogType.QUESTION, "Where do you want to go to?", 
-					"Center", "Corner1", "Corner2", "Corner3", "Corner4");
-			switch (direction) {
-				case 0:
-			    	robot_movements.savePtpMove(board_points.getCenter());
-					break;
-				case 1:
-			    	robot_movements.savePtpMove(board_points.getPoint(0,0));
-					break;
-				case 2:
-			    	robot_movements.savePtpMove(board_points.getPoint(0,2));
-					break;
-				case 3:
-			    	robot_movements.savePtpMove(board_points.getPoint(6,0));
-					break;
-				case 4:
-			    	robot_movements.savePtpMove(board_points.getPoint(6,2));
-					break;
+		for (int i = 0; i < 9; i++) {
+			Frame new_origin = getApplicationData().getFrame("/piece_origin").copy();
+			new_origin.setX(new_origin.getX() + 25 * i);
+			int point_x = getApplicationUI().displayModalDialog(
+					ApplicationDialogType.QUESTION, "Where do you want to put it on x?", 
+					"0", "1", "2", "3", "4", "5", "6");
+			int point_y = getApplicationUI().displayModalDialog(
+					ApplicationDialogType.QUESTION, "Where do you want to put it on y?", 
+					"0", "1", "2", "3", "4", "5", "6");
+			if( board_points.getPoint(point_x, point_y) != null) {
+				robot_interactions.movePiece(new_origin, board_points.getPoint(point_x, point_y));
 			}
-		}*/
-        
-        //robot_interactions.placePieces(getApplicationData().getFrame("/piece_origin"), getApplicationData().getFrame("/pointB"), getObserverManager());
-		
+		}
+			
 		/** Those commands are just examples */
 
 		// GameField field = new GameField();
