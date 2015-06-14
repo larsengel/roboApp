@@ -90,9 +90,12 @@ public class RobotInteractions {
 		open();
 		ICondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 7.5);
 	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
+	    gripper.move(linRel(0.0, 0.0, -2).setJointVelocityRel(0.1));
 	    close();
 	    robot_movements.savePtpMove(destination);
 	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
+	    gripper.move(linRel(0.0, 0.0, -2).setJointVelocityRel(0.1));
+
 	    open();
 	}
 }

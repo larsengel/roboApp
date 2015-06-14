@@ -96,13 +96,28 @@ public class YourApplication extends RoboticsAPIApplication {
 			}
 		}
 			
-		/** Those commands are just examples */
-
-		// GameField field = new GameField();
+		GameField field = new GameField();
 
 		// We get the current field
-		// field = gc.getGameField();
-
+		field = gc.getGameField();
+		Token token = field.getToken(0, 0); // We get the Token on (0, 0)
+		// We write in the Buffer to give the human moves to the Artificial
+		// Intelligence
+		inputBuffer.write(new Integer[] { 0, 0 }); // The human player played on (0, 0)
+		Token new_token = field.getToken(0, 0);
+		
+		getLogger().info("Old Token: " + token + ", New Token: " + new_token);
+		
+		// get GameState
+		GameState gameState = gc.getGameStateMain();
+		getLogger().info("Gamestate: " + gameState);
+		
+		// Get the current player
+		MyPlayerInterface currentPlayer = gc.getCurrentPlayerMain();
+		// Get the color of the curent player
+		Token color = currentPlayer.getColor(); // color = WHITE or BLACK
+		getLogger().info("Current Player: " + currentPlayer + ", Color current Player: " + color);
+		
 		// Token token = field.getToken(0, 0); // We get the Token on (0, 0)
 		// Token = EMPTY or WHITE or BLACK
 
@@ -115,7 +130,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		// MyPlayerInterface currentPlayer = gc.getCurrentPlayerMain();
 
 		//	Token color = currentPlayer.getColor();
-		// color = WHITE or BLACK
+		
 
 		// get GameState
 		// GameState gameState = gc.getGameStateMain();
