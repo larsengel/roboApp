@@ -174,10 +174,12 @@ public class GameController implements Runnable {
                 	    int x_1 = Integer.parseInt(bufferRead.readLine());
                 	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
                 	    int y_1 = Integer.parseInt(bufferRead.readLine());
+                	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
                 	    int x_2 = Integer.parseInt(bufferRead.readLine());
                 	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
                 	    int y_2 = Integer.parseInt(bufferRead.readLine());
-                	    this.userInput.write(new Integer[] { y_1, x_1 , y_2, x_2});
+                	    this.userInput.write(new Integer[] { y_1, x_1 });
+                	    this.userInput.write(new Integer[] { y_2, x_2 });
                     }
                     moveStones();
                     drawToGui();

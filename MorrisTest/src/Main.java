@@ -17,11 +17,7 @@ public class Main {
 		
 		// Starting the game
 		gc.startGame();
-		gc.processInput(new Integer[] { 0, 0 });
-		
-		MyPlayerInterface currentPlayer = gc.getCurrentPlayerMain();
-		
-		System.out.println(currentPlayer);
+
 		
 
 		// We get the current field
