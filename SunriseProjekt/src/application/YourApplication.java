@@ -30,6 +30,7 @@ import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
  * the {@link RoboticsAPITask#run()} method has finished or after stopping the 
  * task. The {@link RoboticsAPITask#dispose()} method will be called, even if an 
  * exception is thrown during initialization or run. 
+ * Test
  * <p>
  * <b>It is imperative to call <code>super.dispose()</code> when overriding the 
  * {@link RoboticsAPITask#dispose()} method.</b> 
