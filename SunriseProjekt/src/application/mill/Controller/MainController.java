@@ -20,6 +20,7 @@ package application.mill.Controller;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 import com.kuka.roboticsAPI.uiModel.IApplicationUI;
 
+import application.RobotInteractions;
 import application.mill.Controller.GameController.GameState;
 import application.mill.Model.Buffer;
 import application.mill.Model.GameField;
@@ -46,10 +47,11 @@ public class MainController {
     private OptionObject options;
     private boolean pause;
     public IApplicationUI appUI;
+    private RobotInteractions robot_interactions;
     /**
      * constructs new main controller.
      */
-    public MainController(Buffer<Integer[]> inputBuffer, IApplicationUI appUI) {
+    public MainController(Buffer<Integer[]> inputBuffer, IApplicationUI appUI, RobotInteractions _rI) {
         //instances:
     	this.appUI = appUI;
      	this.inputBuffer = inputBuffer;
@@ -57,7 +59,8 @@ public class MainController {
         messageBuffer = new Queue<String>();
         messageThread = new MessageProcessor();
         options = new OptionObject();
-        gameControllerThread = new GameController(gameFieldBuffer, inputBuffer, messageBuffer, options.getNumberOfStones());
+        robot_interactions = _rI;
+        gameControllerThread = new GameController(gameFieldBuffer, inputBuffer, messageBuffer, options.getNumberOfStones(), robot_interactions, appUI);
         
         //gui:
         appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Starting the game ...","OK");
@@ -123,7 +126,7 @@ public class MainController {
         inputBuffer.clear();
         messageThread = new MessageProcessor();
         //System.out.println("Nb of stones = "+ options.getNumberOfStones());
-        gameControllerThread = new GameController(gameFieldBuffer, inputBuffer, messageBuffer, options.getNumberOfStones());
+        gameControllerThread = new GameController(gameFieldBuffer, inputBuffer, messageBuffer, options.getNumberOfStones(), robot_interactions, appUI);
         gameControllerThread.setIsP1Com(options.isPlayerOneComputer());
         gameControllerThread.setIsP2Com(options.isPlayerTwoComputer());
         messageThread.start();

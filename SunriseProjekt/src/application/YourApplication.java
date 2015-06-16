@@ -45,7 +45,8 @@ public class YourApplication extends RoboticsAPIApplication {
 	DigitalOutIOGroup digitOut;
 	private RobotMovements robot_movements;
 	private RobotInteractions robot_interactions;
-	private BoardPoints board_points;
+	public static BoardPoints board_points;
+	public Logger logger;
 	
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
@@ -54,23 +55,21 @@ public class YourApplication extends RoboticsAPIApplication {
 		digitOut = new DigitalOutIOGroup(kuka_Sunrise_Cabinet_1);
 		gripper.attachTo(robot.getFlange());
 		robot_movements = new RobotMovements(gripper);	
-		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements, getObserverManager());
+		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements);
+		logger = new Logger(getLogger());
+		
 		}
-
+	
 	public void run() {
 		
-		/** You need those commands*/		
+		board_points = new BoardPoints(getApplicationData().getFrame("/board_center"), 0);
+		board_points.calculateBoard();		
+		
 		//We declare a new Buffer
 		Buffer<Integer[]> inputBuffer = new Buffer<Integer[]>();
-		
-		// 
-		MainController gc = new MainController(inputBuffer, getApplicationUI());
-		
+		MainController gc = new MainController(inputBuffer, getApplicationUI(), robot_interactions);
 		// Starting the game
 		gc.startGame();
-		
-		board_points = new BoardPoints(getApplicationData().getFrame("/board_center"), 0);
-		board_points.calculateBoard();
 		
 		for (Frame[] arr2: board_points.getPoints()) {
 		    for (Frame val: arr2) {
@@ -81,7 +80,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		    	}
 		    }		    	
 		}		
-		
+
 		for (int i = 0; i < 9; i++) {
 			Frame new_origin = getApplicationData().getFrame("/piece_origin").copy();
 			new_origin.setX(new_origin.getX() + 25 * i);
@@ -95,48 +94,6 @@ public class YourApplication extends RoboticsAPIApplication {
 				robot_interactions.movePiece(new_origin, board_points.getPoint(point_x, point_y));
 			}
 		}
-			
-		GameField field = new GameField();
-
-		// We get the current field
-		field = gc.getGameField();
-		Token token = field.getToken(0, 0); // We get the Token on (0, 0)
-		// We write in the Buffer to give the human moves to the Artificial
-		// Intelligence
-		inputBuffer.write(new Integer[] { 0, 0 }); // The human player played on (0, 0)
-		Token new_token = field.getToken(0, 0);
-		
-		getLogger().info("Old Token: " + token + ", New Token: " + new_token);
-		
-		// get GameState
-		GameState gameState = gc.getGameStateMain();
-		getLogger().info("Gamestate: " + gameState);
-		
-		// Get the current player
-		MyPlayerInterface currentPlayer = gc.getCurrentPlayerMain();
-		// Get the color of the curent player
-		Token color = currentPlayer.getColor(); // color = WHITE or BLACK
-		getLogger().info("Current Player: " + currentPlayer + ", Color current Player: " + color);
-		
-		// Token token = field.getToken(0, 0); // We get the Token on (0, 0)
-		// Token = EMPTY or WHITE or BLACK
-
-		// We write in the Buffer to give the human moves to the Artificial
-		// Intelligence
-		// inputBuffer.write(new Integer[] { 0, 0 }); // The human player played on
-													// (0, 0)
-
-		// Get the current player
-		// MyPlayerInterface currentPlayer = gc.getCurrentPlayerMain();
-
-		//	Token color = currentPlayer.getColor();
-		
-
-		// get GameState
-		// GameState gameState = gc.getGameStateMain();
-		// gameState = TAKE (only when mill) or PLACE (at the beginning of the
-		// game) or MOVE (move form one position to an other)
-		// or WIN (when someone won the game)
 	}
 
 	/**

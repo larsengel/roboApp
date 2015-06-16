@@ -18,6 +18,12 @@
 package application.mill.Controller;
 
 //import java.awt.event.MouseEvent;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
+import com.kuka.roboticsAPI.uiModel.IApplicationUI;
+
+import application.Logger;
+import application.RobotInteractions;
+import application.YourApplication;
 import application.mill.Interfaces.GameException;
 import application.mill.Interfaces.Move;
 import application.mill.Interfaces.Token;
@@ -69,6 +75,8 @@ public class GameController implements Runnable {
     private boolean isP1Com;
     private boolean isP2Com;
     private boolean running;
+    private RobotInteractions robot_interactions;
+    private IApplicationUI appUI;
 
     /**
      * constructs new game controller.
@@ -79,7 +87,7 @@ public class GameController implements Runnable {
      * @param numberOfStones numberOfStones 
      */
     public GameController(Queue<GameField> gmBuff, Buffer<Integer[]> userInput,
-            Queue<String> messageBuffer, int numberOfStones) {
+            Queue<String> messageBuffer, int numberOfStones, RobotInteractions _rI, IApplicationUI _appUI) {
         TOTALNUMBERSTONES = numberOfStones;
         this.userInput = userInput;
         this.fieldBuffer = gmBuff;
@@ -88,6 +96,8 @@ public class GameController implements Runnable {
         isP2Com = true;
         field = new GameField();
         running = true;
+        robot_interactions = _rI;
+        appUI = _appUI;
     }
     
     public GameState getGameState(){
@@ -134,26 +144,33 @@ public class GameController implements Runnable {
                     } else {
                         enemy = playerOne;
                     }
-                    sendToGui(enemy.getColor() + " won ");
+                    Logger.log(enemy.getColor() + " won ");
                     running = false;
                     break;
                 
                 case DRAW:
-                    sendToGui(" draw ");
+                	Logger.log(" draw ");
                     running = false;
                     break;
                 
                 case PLACE:
                     if (!checkEndPlace()) {
-                        sendToGui(currentPlayer.getColor() + "'s turn to "
+                    	Logger.log(currentPlayer.getColor() + "'s turn to "
                                 + currentState);
+            			int point_x = appUI.displayModalDialog(
+            					ApplicationDialogType.QUESTION, "Where did you place it on x?", 
+            					"0", "1", "2", "3", "4", "5", "6");
+            			int point_y = appUI.displayModalDialog(
+            					ApplicationDialogType.QUESTION, "Where did you place it on y?", 
+            					"0", "1", "2", "3", "4", "5", "6");
+            			this.userInput.write(new Integer[] { point_x, point_y });
                         placeStones();              
                         drawToGui();
                     }
                     break;
                 
                 case MOVE:
-                    sendToGui(currentPlayer.getColor() + "'s turn to " + currentState);
+                	Logger.log(currentPlayer.getColor() + "'s turn to " + currentState);
                     if (checkEndMove()) {
                         break;
                     }
@@ -202,6 +219,16 @@ public class GameController implements Runnable {
             boolean legalSetMove = GameRuleController.isLegalSetMove(field, move);
             if (legalSetMove) {
                 field.setFieldStatus(move.getDest().x, move.getDest().y, currentPlayer.getColor());
+                if (currentPlayer.getColor().equals(Token.WHITE)) {
+                	Logger.log("Robots move:");
+                	robot_interactions.movePiece(
+                			YourApplication.board_points.getPoint(0, 0), 
+                			YourApplication.board_points.getPoint(move.getDest().x, move.getDest().y));
+                    Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                } else {
+                	Logger.log("Players move:");
+                	Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                }
                 currentPlayer.lowerNumberOfStonesLeftToPlace();
                 currentPlayer.raiseNumberOfStonesOnBoard();
                 if (GameRuleController.createdMill(field, move, currentPlayer.getColor())) {
@@ -239,6 +266,17 @@ public class GameController implements Runnable {
         try {
             if (GameRuleController.isLegalMove(field, move, currentPlayer)) {
                 field.applyMove(move, currentPlayer.getColor());
+                if (currentPlayer.getColor().equals(Token.WHITE)) {
+                	Logger.log("Robots move:");
+                	robot_interactions.movePiece(
+                			YourApplication.board_points.getPoint(move.getSource().x, move.getSource().y), 
+                			YourApplication.board_points.getPoint(move.getDest().x, move.getDest().y));
+                	Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                } else {
+                	Logger.log("Players move:");
+                	Logger.log(move.getSource().x + ", " + move.getSource().y + ", " + currentPlayer.getColor());
+                	Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                }
                 if (GameRuleController.createdMill(field, move, currentPlayer.getColor())) {
                     stateBeforeTake = currentState;
                     currentState = GameState.TAKE;

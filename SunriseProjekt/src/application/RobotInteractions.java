@@ -6,23 +6,19 @@ import com.kuka.common.ThreadUtil;
 import com.kuka.generated.ioAccess.DigitalOutIOGroup;
 import com.kuka.roboticsAPI.conditionModel.ForceCondition;
 import com.kuka.roboticsAPI.conditionModel.ICondition;
-import com.kuka.roboticsAPI.conditionModel.ObserverManager;
 import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
-import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 
 public class RobotInteractions {
 	private Tool gripper;
 	private DigitalOutIOGroup digitOut;
 	private RobotMovements robot_movements;
-	private ObserverManager observer_manager;
 
 	
-	RobotInteractions(Tool _gripper, DigitalOutIOGroup _digitOut, RobotMovements _robot_movements, ObserverManager _observer_manager) {
+	RobotInteractions(Tool _gripper, DigitalOutIOGroup _digitOut, RobotMovements _robot_movements) {
 		gripper = _gripper;
 		digitOut = _digitOut;
 		robot_movements = _robot_movements;
-		observer_manager = _observer_manager;
 	}
 	
 	/**
