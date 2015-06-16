@@ -18,6 +18,10 @@
 package application.mill.Controller;
 
 //import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import application.mill.Interfaces.GameException;
 import application.mill.Interfaces.Move;
 import application.mill.Interfaces.Token;
@@ -123,8 +127,9 @@ public class GameController implements Runnable {
     /**
      * starts the game.
      * @throws GameException 
+     * @throws IOException 
      */
-    public void play() throws GameException {
+    public void play() throws GameException, IOException {
         while (running) {
             switch (currentState) {                
                 case WIN:
@@ -147,7 +152,14 @@ public class GameController implements Runnable {
                     if (!checkEndPlace()) {
                         sendToGui(currentPlayer.getColor() + "'s turn to "
                                 + currentState);
-                        placeStones();              
+                        if (currentPlayer.getColor().equals(Token.BLACK)) {
+	                        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+	                	    int x = Integer.parseInt(bufferRead.readLine());
+	                	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
+	                	    int y = Integer.parseInt(bufferRead.readLine());
+	                	    this.userInput.write(new Integer[] { y, x });
+                        }
+                	    placeStones();              
                         drawToGui();
                     }
                     break;
@@ -157,11 +169,28 @@ public class GameController implements Runnable {
                     if (checkEndMove()) {
                         break;
                     }
+                    if (currentPlayer.getColor().equals(Token.BLACK)) {
+                        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                	    int x_1 = Integer.parseInt(bufferRead.readLine());
+                	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                	    int y_1 = Integer.parseInt(bufferRead.readLine());
+                	    int x_2 = Integer.parseInt(bufferRead.readLine());
+                	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                	    int y_2 = Integer.parseInt(bufferRead.readLine());
+                	    this.userInput.write(new Integer[] { y_1, x_1 , y_2, x_2});
+                    }
                     moveStones();
                     drawToGui();
                     break;
                 case TAKE:
                     sendToGui(currentPlayer.getColor() + "'s turn to " + currentState);
+                    if (currentPlayer.getColor().equals(Token.BLACK)) {
+                        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                	    int x = Integer.parseInt(bufferRead.readLine());
+                	    bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                	    int y = Integer.parseInt(bufferRead.readLine());
+                	    this.userInput.write(new Integer[] { y, x });
+                    }
                     takeStone();
                     drawToGui();
                     break;
@@ -202,8 +231,12 @@ public class GameController implements Runnable {
             boolean legalSetMove = GameRuleController.isLegalSetMove(field, move);
             if (legalSetMove) {
                 field.setFieldStatus(move.getDest().x, move.getDest().y, currentPlayer.getColor());
-                //System.out.println(move.getSource().x + ", " + move.getSource().y + ", " + currentPlayer.getColor());
-                System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                if (currentPlayer.getColor().equals(Token.WHITE)) {
+                	System.out.println("Robots move:");
+                    System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                } else {
+                    System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                }
                 currentPlayer.lowerNumberOfStonesLeftToPlace();
                 currentPlayer.raiseNumberOfStonesOnBoard();
                 if (GameRuleController.createdMill(field, move, currentPlayer.getColor())) {
@@ -241,6 +274,14 @@ public class GameController implements Runnable {
         try {
             if (GameRuleController.isLegalMove(field, move, currentPlayer)) {
                 field.applyMove(move, currentPlayer.getColor());
+                if (currentPlayer.getColor().equals(Token.WHITE)) {
+                	System.out.println("Robots move:");
+                    System.out.println(move.getSource().x + ", " + move.getSource().y + ", " + currentPlayer.getColor());
+                    System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                } else {
+                    System.out.println(move.getSource().x + ", " + move.getSource().y + ", " + currentPlayer.getColor());
+                    System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                }
                 if (GameRuleController.createdMill(field, move, currentPlayer.getColor())) {
                     stateBeforeTake = currentState;
                     currentState = GameState.TAKE;
@@ -281,6 +322,12 @@ public class GameController implements Runnable {
                 try {
                     
                     boolean couldRemoveStoneAtPosition = field.removeStoneAtPosition(enemy, move.getDest().x, move.getDest().y);
+                    if (currentPlayer.getColor().equals(Token.WHITE)) {
+                    	System.out.println("Robot takes piece:");
+                        System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                    } else {
+                        System.out.println(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                    }
                     if (!couldRemoveStoneAtPosition) {
                         sendToGui("Not a legal move!");
                         return;
@@ -370,6 +417,9 @@ public class GameController implements Runnable {
 			play();
 		} catch (GameException e) {
 			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
