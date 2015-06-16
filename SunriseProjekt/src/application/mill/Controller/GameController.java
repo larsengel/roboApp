@@ -157,13 +157,15 @@ public class GameController implements Runnable {
                     if (!checkEndPlace()) {
                     	Logger.log(currentPlayer.getColor() + "'s turn to "
                                 + currentState);
-            			int point_x = appUI.displayModalDialog(
-            					ApplicationDialogType.QUESTION, "Where did you place it on x?", 
-            					"0", "1", "2", "3", "4", "5", "6");
-            			int point_y = appUI.displayModalDialog(
-            					ApplicationDialogType.QUESTION, "Where did you place it on y?", 
-            					"0", "1", "2", "3", "4", "5", "6");
-            			this.userInput.write(new Integer[] { point_y, point_x });
+                        if (currentPlayer.getColor().equals(Token.BLACK)) {
+	            			int point_x = appUI.displayModalDialog(
+	            					ApplicationDialogType.QUESTION, "Where did you place it on x?", 
+	            					"0", "1", "2", "3", "4", "5", "6");
+	            			int point_y = appUI.displayModalDialog(
+	            					ApplicationDialogType.QUESTION, "Where did you place it on y?", 
+	            					"0", "1", "2", "3", "4", "5", "6");
+	            			this.userInput.write(new Integer[] { point_y, point_x });
+                        }
                         placeStones();              
                         drawToGui();
                     }
@@ -174,18 +176,36 @@ public class GameController implements Runnable {
                     if (checkEndMove()) {
                         break;
                     }
+                    if (currentPlayer.getColor().equals(Token.BLACK)) {
+            			int point_x_origin = appUI.displayModalDialog(
+            					ApplicationDialogType.QUESTION, "Where was the piece on x?", 
+            					"0", "1", "2", "3", "4", "5", "6");
+            			int point_y_origin = appUI.displayModalDialog(
+            					ApplicationDialogType.QUESTION, "Where was the piece on y?", 
+            					"0", "1", "2", "3", "4", "5", "6");
+            			int point_x_dest = appUI.displayModalDialog(
+            					ApplicationDialogType.QUESTION, "Where do you want to place it on x?", 
+            					"0", "1", "2", "3", "4", "5", "6");
+            			int point_y_dest = appUI.displayModalDialog(
+            					ApplicationDialogType.QUESTION, "Where do you want to place it on y?", 
+            					"0", "1", "2", "3", "4", "5", "6");
+            			this.userInput.write(new Integer[] { point_y_origin, point_x_origin });
+            			this.userInput.write(new Integer[] { point_y_dest, point_x_dest });
+                    }
                     moveStones();
                     drawToGui();
                     break;
                 case TAKE:
                 	Logger.log(currentPlayer.getColor() + "'s turn to " + currentState);
-        			int point_x = appUI.displayModalDialog(
-        					ApplicationDialogType.QUESTION, "Where did you take it on x?", 
-        					"0", "1", "2", "3", "4", "5", "6");
-        			int point_y = appUI.displayModalDialog(
-        					ApplicationDialogType.QUESTION, "Where did you take it on y?", 
-        					"0", "1", "2", "3", "4", "5", "6");
-        			this.userInput.write(new Integer[] { point_y, point_x });
+                    if (currentPlayer.getColor().equals(Token.BLACK)) {
+	        			int point_x = appUI.displayModalDialog(
+	        					ApplicationDialogType.QUESTION, "Where did you take it on x?", 
+	        					"0", "1", "2", "3", "4", "5", "6");
+	        			int point_y = appUI.displayModalDialog(
+	        					ApplicationDialogType.QUESTION, "Where did you take it on y?", 
+	        					"0", "1", "2", "3", "4", "5", "6");
+	        			this.userInput.write(new Integer[] { point_y, point_x });
+                    }
                     takeStone();
                     drawToGui();
                     break;

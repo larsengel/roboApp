@@ -70,8 +70,9 @@ public class YourApplication extends RoboticsAPIApplication {
 		MainController gc = new MainController(inputBuffer, getApplicationUI(), robot_interactions);
 		// Starting the game
 		gc.startGame();
+		ThreadUtil.milliSleep(300000);
 		
-		for (Frame[] arr2: board_points.getPoints()) {
+		/*for (Frame[] arr2: board_points.getPoints()) {
 		    for (Frame val: arr2) {
 		    	if (val != null) {
 			    	getLogger().info("X: " + val.getX() + ", Y: " + val.getY());
@@ -79,7 +80,7 @@ public class YourApplication extends RoboticsAPIApplication {
 					ThreadUtil.milliSleep(100);
 		    	}
 		    }		    	
-		}		
+		}		*/
 	}
 
 	/**
