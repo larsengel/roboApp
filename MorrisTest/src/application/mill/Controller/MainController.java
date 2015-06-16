@@ -1,0 +1,245 @@
+/*    
+    Copyright (C) 2012 http://software-talk.org/ (developer@software-talk.org)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package application.mill.Controller;
+
+//import java.awt.event.MouseEvent;
+//import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
+//import com.kuka.roboticsAPI.uiModel.IApplicationUI;
+
+import application.mill.Controller.GameController.GameState;
+import application.mill.Model.Buffer;
+import application.mill.Model.GameField;
+import application.mill.Model.MyPlayerInterface;
+import application.mill.Model.OptionObject;
+import application.mill.Model.Queue;
+//import application.mill.view.GameGui;
+
+/**
+ * This class seperates the view from the controller.
+ * <p>
+ * It manages communiucations between them.
+ *
+ * @version 1.2.3
+ */
+public class MainController {
+
+    //private GameGui gui;
+    private Buffer<Integer[]> inputBuffer;
+    private Queue<GameField> gameFieldBuffer;
+    private Queue<String> messageBuffer;
+    private MessageProcessor messageThread;
+    private GameController gameControllerThread;
+    private OptionObject options;
+    private boolean pause;
+    //public IApplicationUI appUI;
+    /**
+     * constructs new main controller.
+     */
+    public MainController(Buffer<Integer[]> inputBuffer/*, IApplicationUI appUI*/) {
+        //instances:
+    	//this.appUI = appUI;
+     	this.inputBuffer = inputBuffer;
+        gameFieldBuffer = new Queue<GameField>();
+        messageBuffer = new Queue<String>();
+        messageThread = new MessageProcessor();
+        options = new OptionObject();
+        gameControllerThread = new GameController(gameFieldBuffer, inputBuffer, messageBuffer, options.getNumberOfStones());
+        
+        //gui:
+        //appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Starting the game ...","OK");
+        // setOptionsToGui();
+        pause = false;
+    }
+
+    /**
+     * returns height of field.
+     *
+     * @return height of field
+     */
+    public int getHeight() {
+        return gameControllerThread.getHeight();
+    }
+
+    /**
+     * returns width of field.
+     *
+     * @return width of field
+     */
+    public int getWidth() {
+        return gameControllerThread.getWidth();
+    }
+
+    /**
+     * checks if the given point exists in the mill game.
+     *
+     * @param x x position int the gamefield
+     * @param y y position in the gamefield
+     * @return whether or not the given point exists in the mill game
+     */
+    public boolean getBelongsToGame(int x, int y) {
+        return gameControllerThread.getBelongsToGame(x, y);
+    }
+
+    /**
+     * enables the gui and set focus to his window.
+     */
+    public void setGuiEnabled() {
+        //gui.setEnabled(true);
+        //gui.requestFocus();
+    }
+
+    /**
+     * writes the input to the buffer for the human input.
+     *
+     * @param e mouse event
+     */
+    public void processInput(Integer[] e) {
+        if (!pause) {
+            inputBuffer.write(e);
+        }
+    }
+
+    /**
+     * starts the game.
+     * If a previous game was started, it will be reseted and a new game
+     * will be started.
+     */
+    public void startGame() {
+        resetGame();
+        inputBuffer.clear();
+        messageThread = new MessageProcessor();
+        //System.out.println("Nb of stones = "+ options.getNumberOfStones());
+        gameControllerThread = new GameController(gameFieldBuffer, inputBuffer, messageBuffer, options.getNumberOfStones());
+        gameControllerThread.setIsP1Com(options.isPlayerOneComputer());
+        gameControllerThread.setIsP2Com(options.isPlayerTwoComputer());
+        messageThread.start();
+        gameControllerThread.start();
+    }
+
+    /**
+     * resets a game.
+     */
+    private void resetGame() {
+        messageThread.kill();
+        gameControllerThread.kill();
+        //inputBuffer = new Buffer<MouseEvent>();
+        messageBuffer = new Queue<String>();
+        gameFieldBuffer = new Queue<GameField>();
+        //gui.setDiagonalLines(options.isPlayWithDiagonalLines());
+        //gui.resetLabels();
+        //gui.repaint();
+        //gui.sendMessege("press start to start the game.");
+        //appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "resetting the game ...","OK");
+    }
+
+    /**
+     * sets the number of stones which where on the gamefield for both players.
+     * Verifies the input and return true if it was a possible input.
+     * @param stones the number of stones
+     * @return true if it was a possible input, else false
+     */
+    public boolean setNumberOfStones(String stones) {
+        try {
+            int strValue = Integer.parseInt(stones);
+            if (strValue < 9 || strValue > 25) {
+                return false;
+            }
+            if (strValue % 2 != 0) {
+                return false;
+            }
+            options.setNumberOfStones(strValue);
+            return true;
+        } catch (Exception e) {
+            System.out.println("" + e);
+            return false;
+        }
+    }
+
+    /**
+     * returns the current object with some options.
+     * @return the current object with some option
+     */
+    public OptionObject getOptions() {
+        return options;
+    }
+
+    /**
+     * saves all options to a file names "options.op".
+     */
+    public void saveOptions() {
+        options.saveOptions();
+    }
+/*
+    private void pause() {
+        pause = true;
+    }
+
+    private void unpause() {
+        pause = false;
+    }*/
+    
+    public GameField getGameField(){
+    	GameField field = gameFieldBuffer.read();
+    	return field;
+    }
+    
+    public GameState getGameStateMain(){
+    	
+    	return gameControllerThread.getGameState();
+    }
+    
+    public MyPlayerInterface getCurrentPlayerMain(){
+    	return gameControllerThread.getCurrentPlayer();
+    }
+    
+    /**
+     * handles the communication between gui and backend.
+     * <p>
+     * More specifically, it sends a message from the backend to the gui.
+     */
+    public class MessageProcessor implements Runnable {
+
+        private boolean run = true;
+
+        /**
+         * constructs and starts thread.
+         */
+        
+        public void start() {
+            new Thread(this).start();
+        }
+
+        @Override
+        public synchronized void run() {
+            while (run) {
+                String msg = messageBuffer.read();
+                if (!run) {
+                    break;
+                }
+                System.out.println(msg);
+            }
+        }
+
+        /**
+         * kills thread.
+         */
+        public void kill() {
+            run = false;
+            messageBuffer.wakeUp();
+        }
+    }
+}
