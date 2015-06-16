@@ -163,7 +163,7 @@ public class GameController implements Runnable {
             			int point_y = appUI.displayModalDialog(
             					ApplicationDialogType.QUESTION, "Where did you place it on y?", 
             					"0", "1", "2", "3", "4", "5", "6");
-            			this.userInput.write(new Integer[] { point_x, point_y });
+            			this.userInput.write(new Integer[] { point_y, point_x });
                         placeStones();              
                         drawToGui();
                     }
@@ -178,7 +178,14 @@ public class GameController implements Runnable {
                     drawToGui();
                     break;
                 case TAKE:
-                    sendToGui(currentPlayer.getColor() + "'s turn to " + currentState);
+                	Logger.log(currentPlayer.getColor() + "'s turn to " + currentState);
+        			int point_x = appUI.displayModalDialog(
+        					ApplicationDialogType.QUESTION, "Where did you take it on x?", 
+        					"0", "1", "2", "3", "4", "5", "6");
+        			int point_y = appUI.displayModalDialog(
+        					ApplicationDialogType.QUESTION, "Where did you take it on y?", 
+        					"0", "1", "2", "3", "4", "5", "6");
+        			this.userInput.write(new Integer[] { point_y, point_x });
                     takeStone();
                     drawToGui();
                     break;
@@ -222,7 +229,7 @@ public class GameController implements Runnable {
                 if (currentPlayer.getColor().equals(Token.WHITE)) {
                 	Logger.log("Robots move:");
                 	robot_interactions.movePiece(
-                			YourApplication.board_points.getPoint(0, 0), 
+                			YourApplication.board_points.getCenter(), 
                 			YourApplication.board_points.getPoint(move.getDest().x, move.getDest().y));
                     Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
                 } else {
@@ -238,10 +245,10 @@ public class GameController implements Runnable {
                     changePlayer();
                 }
             } else {
-                sendToGui("Not a legal move!");
+            	Logger.log("Not a legal move!");
             }
         } catch (GameException ex) {
-            sendToGui("Not a legal move!");
+        	Logger.log("Not a legal move!");
         }
     }
 
@@ -284,10 +291,10 @@ public class GameController implements Runnable {
                     changePlayer();
                 }
             } else {
-                sendToGui("Not a legal move!");
+            	Logger.log("Not a legal move!");
             }
         } catch (GameException ex) {
-            sendToGui("Not a legal move!");
+        	Logger.log("Not a legal move!");
         }
     }
 
@@ -317,17 +324,27 @@ public class GameController implements Runnable {
                 try {
                     
                     boolean couldRemoveStoneAtPosition = field.removeStoneAtPosition(enemy, move.getDest().x, move.getDest().y);
+                    if (currentPlayer.getColor().equals(Token.WHITE)) {
+                    	Logger.log("Robot takes piece:");
+                    	robot_interactions.movePiece(
+                    			YourApplication.board_points.getPoint(move.getDest().x, move.getDest().y),
+                    			YourApplication.board_points.getCenter());
+                    	Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                    } else {
+                    	Logger.log("Players takes piece:");
+                    	Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
+                    }
                     if (!couldRemoveStoneAtPosition) {
                         sendToGui("Not a legal move!");
                         return;
                     }                    
                     
                 } catch (GameException ex) {
-                    sendToGui("Not a legal move!");
+                	Logger.log("Not a legal move!");
                     return;
                 }
             } else {
-                sendToGui("Not a legal move!");
+            	Logger.log("Not a legal move!");
                 return;
             }
             changePlayer();

@@ -80,20 +80,6 @@ public class YourApplication extends RoboticsAPIApplication {
 		    	}
 		    }		    	
 		}		
-
-		for (int i = 0; i < 9; i++) {
-			Frame new_origin = getApplicationData().getFrame("/piece_origin").copy();
-			new_origin.setX(new_origin.getX() + 25 * i);
-			int point_x = getApplicationUI().displayModalDialog(
-					ApplicationDialogType.QUESTION, "Where do you want to put it on x?", 
-					"0", "1", "2", "3", "4", "5", "6");
-			int point_y = getApplicationUI().displayModalDialog(
-					ApplicationDialogType.QUESTION, "Where do you want to put it on y?", 
-					"0", "1", "2", "3", "4", "5", "6");
-			if( board_points.getPoint(point_x, point_y) != null) {
-				robot_interactions.movePiece(new_origin, board_points.getPoint(point_x, point_y));
-			}
-		}
 	}
 
 	/**
