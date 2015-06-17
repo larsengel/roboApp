@@ -1,0 +1,20 @@
+@book{shimp2013advertising,
+  title={Advertising promotion and other aspects of integrated marketing communications},
+  author={Shimp, Terence and Andrews, J Craig},
+  year={2013},
+  publisher={Cengage Learning},
+  pages={410}
+}
+
+@incollection{EffektiveNewsletter,
+	year={2014},
+	isbn={978-3-8349-4333-0},
+	booktitle={Erfolgreich als Medical Advisor und Medical Science Liaison Manager},
+	doi={10.1007/978-3-8349-4334-7_24},
+	title={Effektive Newsletter},
+	url={http://dx.doi.org/10.1007/978-3-8349-4334-7_24},
+	publisher={Springer Fachmedien Wiesbaden},
+	author={Umbach, Günter},
+	pages={191-200},
+	language={German}
+}
