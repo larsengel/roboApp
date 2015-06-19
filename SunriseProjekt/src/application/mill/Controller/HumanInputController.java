@@ -69,7 +69,7 @@ public class HumanInputController extends AbstractPlayer implements Playerinterf
     public Move getNextMove(ModelInterface model, int turnCounter) {
         nextMove = new MyMove();
         getNextMoveSource(model);
-        getNextMoveDest();
+        //getNextMoveDest();
         return nextMove;
     }
 
@@ -84,6 +84,7 @@ public class HumanInputController extends AbstractPlayer implements Playerinterf
                 Integer[] temp = buff.read();
                 // GameLabel temp = (GameLabel) event.getComponent();
                 nextMove.setSource(temp[1], temp[0]);
+                nextMove.setDest(temp[3], temp[2]);
                 System.out.println("input :" + temp);
                 if (model.getFieldStatus(nextMove.getSource().x, nextMove.getSource().y) == super.getColor()) {
 
@@ -101,7 +102,8 @@ public class HumanInputController extends AbstractPlayer implements Playerinterf
      * adds a dest to the <code>nextMove</code> from player input.
      * <p>
      **/
-    private void getNextMoveDest() {
+    @SuppressWarnings("unused")
+	private void getNextMoveDest() {
         while (true) {
             Integer[] temp = buff.read();
             System.out.println("input2 :" + temp);

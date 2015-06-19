@@ -15,9 +15,18 @@ public class RobotMovements {
 	
 	private Tool gripper;
 	private float break_force = 15;
+	private Frame robot_rest;
 
-	RobotMovements(Tool _gripper) {
+	RobotMovements(Tool _gripper, AbstractFrame _rest) {
 		gripper = _gripper;
+		robot_rest = _rest.copy();
+	}
+	
+	/**
+	 * Move robot to rest position
+	 */
+	public void moveToRest() {
+		savePtpMove(robot_rest);
 	}
 	
 	/**

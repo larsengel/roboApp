@@ -21,6 +21,7 @@ package application.mill.Controller;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 import com.kuka.roboticsAPI.uiModel.IApplicationUI;
 
+import application.BoardPoints;
 import application.Logger;
 import application.RobotInteractions;
 import application.YourApplication;
@@ -189,8 +190,7 @@ public class GameController implements Runnable {
             			int point_y_dest = appUI.displayModalDialog(
             					ApplicationDialogType.QUESTION, "Where do you want to place it on y?", 
             					"0", "1", "2", "3", "4", "5", "6");
-            			this.userInput.write(new Integer[] { point_y_origin, point_x_origin });
-            			this.userInput.write(new Integer[] { point_y_dest, point_x_dest });
+            			this.userInput.write(new Integer[] { point_y_origin, point_x_origin, point_y_dest, point_x_dest });
                     }
                     moveStones();
                     drawToGui();
@@ -249,8 +249,9 @@ public class GameController implements Runnable {
                 if (currentPlayer.getColor().equals(Token.WHITE)) {
                 	Logger.log("Robots move:");
                 	robot_interactions.movePiece(
-                			YourApplication.board_points.getCenter(), 
+                			YourApplication.board_points.getPieceOrigin(), 
                 			YourApplication.board_points.getPoint(move.getDest().x, move.getDest().y));
+                	BoardPoints.nr_of_placed++;
                     Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
                 } else {
                 	Logger.log("Players move:");
@@ -348,7 +349,7 @@ public class GameController implements Runnable {
                     	Logger.log("Robot takes piece:");
                     	robot_interactions.movePiece(
                     			YourApplication.board_points.getPoint(move.getDest().x, move.getDest().y),
-                    			YourApplication.board_points.getCenter());
+                    			YourApplication.board_points.getPieceDrop());
                     	Logger.log(move.getDest().x + ", " + move.getDest().y + ", " + currentPlayer.getColor());
                     } else {
                     	Logger.log("Players takes piece:");

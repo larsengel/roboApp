@@ -5,11 +5,14 @@ import com.kuka.roboticsAPI.geometricModel.Frame;
 
 public class BoardPoints {
 	private Frame center;
+	private Frame piece_origin;
+	private Frame piece_drop;
 	private Frame[][] points;
 	private float angle_board;
 	private float distance_0, distance_1, distance_2, distance_3;
-	
-	BoardPoints(AbstractFrame _center, float _angle_board) {
+	private final int DIAMETER_OF_PIECE = 25;
+	public static int nr_of_placed = 0;
+	BoardPoints(AbstractFrame _center, float _angle_board, AbstractFrame _piece_origin, AbstractFrame _piece_drop) {
 		this.center =  _center.copy();
 		this.angle_board = _angle_board;
 		distance_0 = 0;
@@ -17,6 +20,8 @@ public class BoardPoints {
 		distance_2 = 65;
 		distance_3 = 100;
 		points = new Frame[7][7];
+		piece_origin = _piece_origin.copy();
+		piece_drop = _piece_drop.copy();
 	}
 	
 	/**
@@ -146,11 +151,8 @@ public class BoardPoints {
 			points[6][6].setY(center.getY() + (-distance_3 	* Math.sin(angle_board) + ( distance_3 * Math.cos(angle_board))));
 	}
 	
-	/**
-	 * 
-	 * @param i
-	 * @param j
-	 * @return
+
+	/** GETTER
 	 */
 	public Frame getPoint(int i, int j) {
 		return points[i][j];
@@ -161,6 +163,16 @@ public class BoardPoints {
 	}
 	public Frame getCenter() {
 		return center;
+	}
+	
+	public Frame getPieceOrigin() {
+		Frame new_dest = piece_origin.copy();
+		new_dest.setX(new_dest.getX() + nr_of_placed * DIAMETER_OF_PIECE);
+		return new_dest;
+	}
+	
+	public Frame getPieceDrop() {
+		return piece_drop;
 	}
 
 }

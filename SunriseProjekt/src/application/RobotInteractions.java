@@ -40,42 +40,6 @@ public class RobotInteractions {
 	}
 	
 	/**
-	 * Method to put a part at a specific location
-	 *  
-	 * @param destination
-	 */
-	public void putPart(AbstractFrame destination) {
-        robot_movements.savePtpMove(destination);
-        robot_movements.moveNear(destination, 15);
-        open();
-        robot_movements.moveNear(destination, -15);
-        close();
-	}
-	
-	/**
-	 * Method to get a part from a specific location
-	 * 
-	 * @param destination
-	 */
-	public void getPart(AbstractFrame destination) {
-        robot_movements.savePtpMove(destination);
-        open();
-        robot_movements.moveNear(destination, 15);
-        close();
-        robot_movements.moveNear(destination, -15);
-	}
-	
-	/**
-	 * Method to place the game pieces of the robot
-	 * 
-	 * @param origin
-	 * @param destination
-	 */
-	public void placePieces(AbstractFrame origin, AbstractFrame destination) {
-		//TODO write method to place the pieces at the beginning of game
-	}
-	
-	/**
 	 * Method to move a game piece from one position to another
 	 * 
 	 * @param origin
@@ -86,12 +50,12 @@ public class RobotInteractions {
 		open();
 		ICondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 7.5);
 	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
-	    gripper.move(linRel(0.0, 0.0, -2).setJointVelocityRel(0.1));
+	    gripper.move(linRel(0.0, 0.0, -5).setJointVelocityRel(0.1));
 	    close();
 	    robot_movements.savePtpMove(destination);
 	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
-	    gripper.move(linRel(0.0, 0.0, -2).setJointVelocityRel(0.1));
-
+	    gripper.move(linRel(0.0, 0.0, -5).setJointVelocityRel(0.1));
 	    open();
+	    robot_movements.moveToRest();
 	}
 }
