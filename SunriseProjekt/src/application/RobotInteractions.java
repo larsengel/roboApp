@@ -48,14 +48,16 @@ public class RobotInteractions {
 	public void movePiece(AbstractFrame origin, AbstractFrame destination) {
 		robot_movements.savePtpMove(origin);
 		open();
-		ICondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 7.5);
+		ICondition testForceCondition = ForceCondition.createSpatialForceCondition(gripper.getDefaultMotionFrame(), 8);
 	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
 	    gripper.move(linRel(0.0, 0.0, -5).setJointVelocityRel(0.1));
 	    close();
+	    gripper.move(linRel(0.0, 0.0, -100).setJointVelocityRel(0.1));
 	    robot_movements.savePtpMove(destination);
 	    gripper.move(linRel(0.0, 0.0, 100.0).breakWhen(testForceCondition).setJointVelocityRel(0.1));
 	    gripper.move(linRel(0.0, 0.0, -5).setJointVelocityRel(0.1));
 	    open();
+	    gripper.move(linRel(0.0, 0.0, -100).setJointVelocityRel(0.1));
 	    robot_movements.moveToRest();
 	}
 }

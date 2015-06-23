@@ -48,7 +48,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		gripper = getApplicationData().createFromTemplate("Greifer");
 		digitOut = new DigitalOutIOGroup(kuka_Sunrise_Cabinet_1);
 		gripper.attachTo(robot.getFlange());
-		robot_movements = new RobotMovements(gripper, getApplicationData().getFrame("/robot_rest"));	
+		robot_movements = new RobotMovements(gripper, getApplicationData().getFrame("/robot_rest"), getApplicationUI());	
 		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements);
 		logger = new Logger(getLogger());
 		server = new TCP_SERVER();

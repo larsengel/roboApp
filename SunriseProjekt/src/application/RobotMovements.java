@@ -10,16 +10,20 @@ import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.motionModel.IMotionContainer;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
+import com.kuka.roboticsAPI.uiModel.IApplicationUI;
 
 public class RobotMovements {
 	
 	private Tool gripper;
 	private float break_force = 15;
 	private Frame robot_rest;
+	private IApplicationUI appUI;
 
-	RobotMovements(Tool _gripper, AbstractFrame _rest) {
+	RobotMovements(Tool _gripper, AbstractFrame _rest, IApplicationUI _appUI) {
 		gripper = _gripper;
 		robot_rest = _rest.copy();
+		appUI = _appUI;
 	}
 	
 	/**
@@ -55,6 +59,7 @@ public class RobotMovements {
 		IFiredConditionInfo firedCondInfo =	movement.getFiredBreakConditionInfo();
 		if (firedCondInfo != null) {
 			ThreadUtil.milliSleep(1000);
+	        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "App Stopped...","Continue");
 		}
 	}
 	/**
@@ -71,6 +76,7 @@ public class RobotMovements {
 		IFiredConditionInfo firedCondInfo =	movement.getFiredBreakConditionInfo();
 		if (firedCondInfo != null) {
 			ThreadUtil.milliSleep(1000);
+	        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "App Stopped...","Continue");
 		}
 	}
 }
