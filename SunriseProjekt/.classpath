@@ -22,5 +22,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/SunriseProjekt/KUKAJavaLib/applicationServer.publishing-javadoc.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/application/jamod-1.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
