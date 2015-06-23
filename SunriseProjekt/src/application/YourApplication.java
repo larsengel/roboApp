@@ -73,9 +73,9 @@ public class YourApplication extends RoboticsAPIApplication {
 		// Starting the game
 		gc.startGame();
 		
-		//while (!gc.getGameStateMain().equals("WIN") || !gc.getGameStateMain().equals("DRAW")) {
-			ThreadUtil.milliSleep(600000);
-		//}
+		while (gc.getGameStateMain() == null || !gc.getGameStateMain().equals("WIN") || !gc.getGameStateMain().equals("DRAW")) {
+			ThreadUtil.milliSleep(1000);
+		}
 	}
 
 	/**
