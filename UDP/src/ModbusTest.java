@@ -60,7 +60,7 @@ public class ModbusTest {
 		        InetAddress addr = null; // the slave's address
 		        int port = Modbus.DEFAULT_PORT;
 		        ReadMultipleRegistersResponse response;
-		        addr = InetAddress.getByName("192.168.0.104");
+		        addr = InetAddress.getByName("localhost");
 
 		        response = readRegisters(addr, port, 3010, 24);
 		        System.out.println(response);
