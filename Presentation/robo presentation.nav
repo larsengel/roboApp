@@ -44,24 +44,30 @@
 \headcommand {\beamer@subsectionentry {0}{5}{2}{13}{Safety}}\headcommand {\beamer@subsectionpages {12}{12}}
 \headcommand {\slideentry {5}{2}{1}{13/13}{Safety}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\sectionentry {6}{Difficulties faced}{14}{Difficulties faced}{0}}
-\headcommand {\beamer@sectionpages {11}{13}}
-\headcommand {\beamer@subsectionpages {13}{13}}
-\headcommand {\slideentry {6}{0}{2}{14/14}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{5}{3}{14}{Visual Analysis}}\headcommand {\beamer@subsectionpages {13}{13}}
+\headcommand {\slideentry {5}{3}{1}{14/14}{Visual Analysis}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\slideentry {6}{0}{3}{15/15}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{5}{4}{15}{Communication between Robot and Camera}}\headcommand {\beamer@subsectionpages {14}{14}}
+\headcommand {\slideentry {5}{4}{1}{15/15}{Communication between Robot and Camera}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\sectionentry {7}{Conclusion}{16}{Conclusion}{0}}
-\headcommand {\beamer@sectionpages {14}{15}}
-\headcommand {\beamer@subsectionpages {14}{15}}
-\headcommand {\slideentry {7}{0}{4}{16/16}{}{0}}
+\headcommand {\sectionentry {6}{Difficulties faced}{16}{Difficulties faced}{0}}
+\headcommand {\beamer@sectionpages {11}{15}}
+\headcommand {\beamer@subsectionpages {15}{15}}
+\headcommand {\slideentry {6}{0}{2}{16/16}{}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\slideentry {7}{0}{5}{17/17}{}{0}}
+\headcommand {\slideentry {6}{0}{3}{17/17}{}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {7}{0}{6}{18/18}{}{0}}
+\headcommand {\sectionentry {7}{Conclusion}{18}{Conclusion}{0}}
+\headcommand {\beamer@sectionpages {16}{17}}
+\headcommand {\beamer@subsectionpages {16}{17}}
+\headcommand {\slideentry {7}{0}{4}{18/18}{}{0}}
 \headcommand {\beamer@framepages {18}{18}}
-\headcommand {\beamer@partpages {1}{18}}
-\headcommand {\beamer@subsectionpages {16}{18}}
-\headcommand {\beamer@sectionpages {16}{18}}
-\headcommand {\beamer@documentpages {18}}
-\headcommand {\def \inserttotalframenumber {18}}
+\headcommand {\slideentry {7}{0}{5}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {7}{0}{6}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\beamer@partpages {1}{20}}
+\headcommand {\beamer@subsectionpages {18}{20}}
+\headcommand {\beamer@sectionpages {18}{20}}
+\headcommand {\beamer@documentpages {20}}
+\headcommand {\def \inserttotalframenumber {20}}

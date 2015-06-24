@@ -24,6 +24,14 @@
 \institute{Fachhochschule Kiel}
 \date{\today}
 
+\newcommand\Wider[2][1.9cm]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+
 \begin{document}
 
 \AtBeginSection[]
@@ -63,7 +71,7 @@
 \section{Software and Hardware Tools}
 \begin{frame}{Software and Hardware Tools}
 \begin{itemize}
-\item Robotic Arm LBR iiwa 7 R800 1 by KUKA Laboratories GmbH.
+\item Robotic Arm LBR iiwa 7 R800 1 by KUKA Laboratories.
 \begin{itemize}
 \item Sunrise Workbench
 \end{itemize}
@@ -108,18 +116,41 @@
 \section{Implementation phase}
 \subsection{Program Architecture}
 \begin{frame}{Program Architecture}
-\begin{itemize}
-\item 
-\item 
-\end{itemize}
+\Wider{
+\begin{figure}[h!]
+  	\centering
+  	\tiny{Class Diagram}
+	\includegraphics[width=12.5cm]{imgs/classDiagram.jpg}\\
+\end{figure}
+}
 \end{frame}
 
 \subsection{Safety}
 \begin{frame}{Safety}
-\includegraphics[width=20cm,angle=0]{imgs/safety.png}
-
+\Wider{
+\begin{figure}[h!]
+	\tiny{Listing 1: Extract from the Class RobotMovements}\\
+  	\centering
+  	\includegraphics[width=12.4cm]{imgs/safety.png}
+\end{figure}
+}
+\Wider{
+\begin{figure}[h!]
+  	\centering
+  	\tiny{Listing 2: Call for save PTP Movement Method}
+	\includegraphics[width=10cm]{imgs/safety_02.png}\\
+\end{figure}
+}
 \end{frame}
 
+\subsection{Visual Analysis}
+\begin{frame}{Visual Analysis}
+
+\end{frame}
+\subsection{Communication between Robot and Camera}
+\begin{frame}{Communication between Robot and Camera}
+
+\end{frame}
 
 \section{Difficulties faced}
 \begin{frame}{Difficulties faced during the project}

@@ -9,5 +9,7 @@
 \beamer@sectionintoc {5}{Implementation phase}{11}{0}{5}
 \beamer@subsectionintoc {5}{1}{Program Architecture}{12}{0}{5}
 \beamer@subsectionintoc {5}{2}{Safety}{13}{0}{5}
-\beamer@sectionintoc {6}{Difficulties faced}{14}{0}{6}
-\beamer@sectionintoc {7}{Conclusion}{16}{0}{7}
+\beamer@subsectionintoc {5}{3}{Visual Analysis}{14}{0}{5}
+\beamer@subsectionintoc {5}{4}{Communication between Robot and Camera}{15}{0}{5}
+\beamer@sectionintoc {6}{Difficulties faced}{16}{0}{6}
+\beamer@sectionintoc {7}{Conclusion}{18}{0}{7}
