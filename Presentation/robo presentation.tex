@@ -15,9 +15,11 @@
 \usepackage{subfigure}
 \usepackage[german]{babel}
 \usepackage{xy}
+
 \usetheme{antibes}
-\title{Implimentation of Nine Men`s Morris}
-\author{Lars Engel \newline Vikash\newline Ahsan Yousuf}
+\setbeamertemplate{footline}[page number]{}
+\title{Implementation of Nine Men`s Morris}
+\author{Lars Engel \newline Vikash \newline Ahsan Yousuf}
 
 \institute{Fachhochschule Kiel}
 \date{\today}
@@ -42,64 +44,62 @@
 \begin{frame}{Introduction }
 \begin{itemize}
 \item KUKA lbr iiwa 7.
-\item Game called Nine Men`s Morris.
+\item Game called Nine Men's Morris.
 \item Cognex Camera.
 \item Artificial Intelligence.
 \end{itemize}
 \end{frame}
 
 \section{Milestones of Project}
-\begin{frame}
+\begin{frame}{Milestones of the Project}
 \begin{itemize}
 \item Human vs KUKA robot.  
-\item Robot can detect human moves and implement its moves wisely with AI.
+\item Robot can detect human moves and can perform its own moves wisely.
 \item Robot knows its turn after human.
-\item through camera ``Cognex`` robot interects with real world.
+\item Through a camera robot interacts with real world.
 \end{itemize}
 \end{frame}
 
 \section{Software and Hardware Tools}
-\begin{frame}
+\begin{frame}{Software and Hardware Tools}
 \begin{itemize}
-\item Sunrise Workbench by KUKA.
-\item Eclipse for testing AI and server setup.
+\item Robotic Arm LBR iiwa 7 R800 1 by KUKA Laboratories GmbH.
+\begin{itemize}
+\item Sunrise Workbench
+\end{itemize}
+\item Cognex IS 7000 Camera
+\begin{itemize}
+\item Cognex In-Sight Explorer.
+\end{itemize}
+\vspace{\baselineskip}
+\item Eclipse IDE for testing AI and server setup.
 \item GIT for version control.
-\item insight Explorer.
-\item Robotic Arm by KUKA.
-\item Interface to Cognex Camera.
 \end{itemize}
 \end{frame}
 
-\section{Basic requirements to achieve target}
-\begin{frame}
+\section{Workflow}
+\subsection{Basic requirements to achieve target}
+\begin{frame}{Basic requirements to achieve target}
 \begin{itemize}
-\item Understanding of nine men`s Games Rules.
-\item Get started with some useful methods of robot.
-\item Learn and approach for insight explorer. 
+\item Understanding of Nine Men's Morris games rules.
+\item Getting started with some useful methods of the robot.
+\item Learn how to use the Camera. 
 \end{itemize}
 \end{frame}
 
 
-\section{Task distribution}
-\begin{frame}
+\subsection{Task distribution}
+\begin{frame}{Task distribution}
 \begin{itemize}
-\item Task 1: A simple program that move game piece from one point to another point (Sunrise Workbench).
-\item Task 2: Image recognition with Insight explorer.
-\item Task 3: Intersection points strategy.
-\item Task 4: Game filed board measurement.
-\item Task 5: code for game field board measurement.
-\item Task 6: First program that pick game pieces from out of the game field and place in to the given point on to the game field.
-
+\item Story 1: As a user I want the robot to move one game piece from one point to an other point.
+\item Story 2: As a user I want the camera to recognize the game
+\begin{itemize}
+\item Story 2.1: As a user I want the camera to recognize the game pieces.
+\item Story 2.2: As a user I want the camera to recognize the game board.
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Task distribution Continue...}
-\begin{itemize}
-\item Task 7: program that wait until user play his moves than robot play its turn.
-\item Task 8: Implementation of extra features for human safety.
-\item Task 9: ideas for placing pieces in outside field (Horizontal or Vertical).
-\item Task 10: Merger of our program with AI.
-\item Task 11: Communication between robot and camera.
+\item Story 3: As a user I want the robot to know all relevant game board points.
+\item Story 4: As a player I don't want to get harmed by the robot.
+\item ...
 \end{itemize}
 \end{frame}
 
@@ -107,39 +107,49 @@
 
 \section{Implementation phase}
 \subsection{Program Architecture}
-\begin{frame}
-``Class Diagram``
+\begin{frame}{Program Architecture}
 \begin{itemize}
 \item 
 \item 
 \end{itemize}
 \end{frame}
 
+\subsection{Safety}
+\begin{frame}{Safety}
+\includegraphics[width=20cm,angle=0]{imgs/safety.png}
+
+\end{frame}
 
 
 \section{Difficulties faced}
-\begin{frame}
+\begin{frame}{Difficulties faced during the project}
 \begin{itemize}
-\item understanding of robotics features of robot (Software).
-\item Cartesian coordinates.
-\item Safety Issues.
+\item Understanding of robotics
+\begin{itemize}
+\item Robot movement limitations
+\item Coordination transformations
+\end{itemize}
 \item Understanding of AI.
-\item piece recognition by insight explorer (still) due to light interference.
-\item game board alignment.
-\item communication of robot and camera.
+\item Recognition by the camera.
+\begin{itemize}
+\item Game board alignment.
+\item Token recognition
+\end{itemize}
+\item Communication of robot and camera.
 \end{itemize}
 \end{frame}
 
 
 \section{Conclusion}
-\begin{frame}
+\begin{frame}{Conclusion}
 \begin{itemize}
-\item Successfully done our target of basic game playing of Human Vs Robot.
-\item Improvements required:\newline
-1. detection of cheat of Human player.\newline
-2. our game starts from one fixed point,future enhancement will be it start from any random point.\newline
-3. for now human player always start the game, in future any one can start the game.\newline
-4. Alignment of game board is fixed, in future rotation of field does not matter.
+\item Human can play Nine Men's Morris against the robot.
+\item Possible Improvements:
+\begin{enumerate}
+\item Better cheat handling
+\item Board orientation and location
+\item Choosing token color and starting player
+\end{enumerate}
 \end{itemize}
 \end{frame}
 
