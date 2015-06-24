@@ -54,7 +54,9 @@ public class ModbusTest {
 		    }
 		  }
 	
-	public static void main(String[] args) {
+	
+	
+	public void getFromCamera() {
 		    try {
 		        /* Variables for storing the parameters */
 		        InetAddress addr = null; // the slave's address
@@ -62,12 +64,27 @@ public class ModbusTest {
 		        ReadMultipleRegistersResponse response;
 		        addr = InetAddress.getByName("localhost");
 
-		        response = readRegisters(addr, port, 3010, 24);
-		        System.out.println(response);
+		        Boolean[] boardpoint_status = new Boolean[24];
+		        
+		        response = readRegisters(addr, port, 30010, 24);
+		        for(int i = 0; i < 24; i++) {
+		        	int val = response.getRegisterValue(i);
+		        	if(val == 22127) {
+		        		boardpoint_status[i] = true;
+		        	} else {
+		        		boardpoint_status[i] = false;
 
+		        	}
+		        	System.out.println(i + ": " + boardpoint_status[i]);
+		        }
 		    } catch (Exception ex) {
 		      ex.printStackTrace();
 		    }
 		  }//main
+	
+	public static void main(String[] args) {
+		ModbusTest modbusTest = new ModbusTest();
+		modbusTest.getFromCamera();
+	}
 
 }
