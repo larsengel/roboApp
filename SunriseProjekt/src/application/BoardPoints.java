@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Arrays;
+
 import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 
@@ -8,6 +10,8 @@ public class BoardPoints {
 	private Frame piece_origin;
 	private Frame piece_drop;
 	private Frame[][] points;
+	private Boolean[][] belongsToGame;
+	public Boolean[] field_bool;
 	private float angle_board;
 	private float distance_0, distance_1, distance_2, distance_3;
 	private final int DIAMETER_OF_PIECE = 25;
@@ -22,6 +26,25 @@ public class BoardPoints {
 		points = new Frame[7][7];
 		piece_origin = _piece_origin.copy();
 		piece_drop = _piece_drop.copy();
+		field_bool = new Boolean[24];
+		Arrays.fill(field_bool, Boolean.FALSE);
+		
+        belongsToGame = new Boolean[7][7];
+        
+		for (int x = 0; x < 7; x++) {
+            for (int y = 0; y < 7; y++) {
+                // assign belongs to game value
+                if ((0 <= x && x <= 6) && (0 <= y && y <= 6)
+                        && ((x == y && x != 3 && y != 3)
+                        || ((x + y) == 6 && x != 3)
+                        || (x == 3 && y != 3)
+                        || (y == 3 && x != 3))) {
+                    belongsToGame[x][y] = true;
+                } else {
+                    belongsToGame[x][y] = false;
+                }
+            }
+        }
 	}
 	
 	/**
@@ -175,4 +198,68 @@ public class BoardPoints {
 		return piece_drop;
 	}
 
+	public int[] getFieldByNumber(int nr) {
+		int count = 0;
+		int[] result = new int[2];
+		for (int x = 0; x < 7; x++) {
+            for (int y = 0; y < 7; y++) {
+            	if(belongsToGame[x][y]) {
+                	if(count ==  nr) {
+                		result[0] = x;
+                		result[1] = y;
+                		return result;
+                	}
+            		count++;
+            	}
+            }    
+		}
+		return null;
+	}
+	
+	public int getFieldByCoords(int _x, int _y) {
+		int count = 0;
+		for (int x = 0; x < 7; x++) {
+            for (int y = 0; y < 7; y++) {
+            	if(belongsToGame[x][y]) {
+                	if(x == _x && y == _y) {
+                		return count;
+                	}
+            		count++;
+            	}
+            }    
+		}
+		return -1;
+	}
+	
+	public int compareForChangesPlace(Boolean[] _new_field) {
+		for (int i = 0; i <= 23; i++) {
+			if(field_bool[i] == Boolean.FALSE && _new_field[i] == Boolean.TRUE) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int compareForChangesTake(Boolean[] _new_field) {
+		for (int i = 0; i <= 23; i++) {
+			if(field_bool[i] == Boolean.TRUE && _new_field[i] == Boolean.FALSE) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	public int[] compareForChangesMove(Boolean[] _new_field) {
+		int[] result = new int[2];
+		for (int i = 0; i <= 23; i++) {
+			if(field_bool[i] == Boolean.TRUE && _new_field[i] == Boolean.FALSE) {
+				result[0] = i;
+			}
+		}
+		for (int i = 0; i <= 23; i++) {
+			if(field_bool[i] == Boolean.FALSE && _new_field[i] == Boolean.TRUE) {
+				result[1] = i;
+			}
+		}
+		return result;
+	}
 }

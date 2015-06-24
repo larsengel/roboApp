@@ -1,6 +1,7 @@
 package application;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import net.wimpi.modbus.Modbus;
 import net.wimpi.modbus.io.ModbusTCPTransaction;
@@ -10,10 +11,17 @@ import net.wimpi.modbus.msg.ReadMultipleRegistersRequest;
 import net.wimpi.modbus.msg.ReadMultipleRegistersResponse;
 import net.wimpi.modbus.net.TCPMasterConnection;
 
+
 public class ModbusClient {
 	
-	public static ReadMultipleRegistersResponse readRegisters(InetAddress addr, int port,
-		      int register, int length) {
+	private InetAddress addr;
+	private int port = Modbus.DEFAULT_PORT;
+	
+	public ModbusClient(String _addr) throws UnknownHostException {
+		addr = InetAddress.getByName(_addr);
+	}
+	
+	 private ReadMultipleRegistersResponse readRegisters(int register, int length) {
 		    TCPMasterConnection connection = null;
 		    ModbusTCPTransaction transaction = null; // the transaction
 		    ReadMultipleRegistersRequest request = null; // the request
@@ -56,18 +64,26 @@ public class ModbusClient {
 		    }
 		  }
 	
-	public void getValue() {
+	
+	
+	public Boolean[] getFromCamera() {
 		    try {
-		        /* Variables for storing the parameters */
-		        InetAddress addr = InetAddress.getByName("192.168.0.104");
-		        int port = Modbus.DEFAULT_PORT;
+
 		        ReadMultipleRegistersResponse response;
-
-		        response = readRegisters(addr, port, 3010, 24);
-		        System.out.println(response);
-
+		        Boolean[] boardpoint_status = new Boolean[24];
+		        response = readRegisters(30010, 24);
+		        for(int i = 23, j = 0; i >= 0; i--, j++) {
+		        	int val = response.getRegisterValue(i);
+		        	if(val == 22127) {
+		        		boardpoint_status[j] = true;
+		        	} else {
+		        		boardpoint_status[j] = false;
+		        	}
+		        }
+		        return boardpoint_status;
 		    } catch (Exception ex) {
 		      ex.printStackTrace();
+		      return null;
 		    }
 		  }
 }

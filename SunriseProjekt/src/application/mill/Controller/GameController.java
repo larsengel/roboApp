@@ -18,11 +18,14 @@
 package application.mill.Controller;
 
 //import java.awt.event.MouseEvent;
+import java.net.UnknownHostException;
+
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 import com.kuka.roboticsAPI.uiModel.IApplicationUI;
 
 import application.BoardPoints;
 import application.Logger;
+import application.ModbusClient;
 import application.RobotInteractions;
 import application.YourApplication;
 import application.mill.Interfaces.GameException;
@@ -78,6 +81,7 @@ public class GameController implements Runnable {
     private boolean running;
     private RobotInteractions robot_interactions;
     private IApplicationUI appUI;
+	private ModbusClient modbus_client;
 
     /**
      * constructs new game controller.
@@ -99,6 +103,12 @@ public class GameController implements Runnable {
         running = true;
         robot_interactions = _rI;
         appUI = _appUI;
+		try {
+			modbus_client = new ModbusClient("localhost");
+		} catch (UnknownHostException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		}
     }
     
     public GameState getGameState(){
@@ -159,13 +169,13 @@ public class GameController implements Runnable {
                     	Logger.log(currentPlayer.getColor() + "'s turn to "
                                 + currentState);
                         if (currentPlayer.getColor().equals(Token.BLACK)) {
-	            			int point_x = appUI.displayModalDialog(
-	            					ApplicationDialogType.QUESTION, "Where did you place it on x?", 
-	            					"0", "1", "2", "3", "4", "5", "6");
-	            			int point_y = appUI.displayModalDialog(
-	            					ApplicationDialogType.QUESTION, "Where did you place it on y?", 
-	            					"0", "1", "2", "3", "4", "5", "6");
-	            			this.userInput.write(new Integer[] { point_y, point_x });
+                            appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Placed piece?","OK");
+                                                        
+	            			Boolean[] new_field = new Boolean[24];
+	            			new_field = modbus_client.getFromCamera();
+	            			int changed = YourApplication.board_points.compareForChangesPlace(new_field);
+	            			int[] pos = YourApplication.board_points.getFieldByNumber(changed);
+	            			this.userInput.write(new Integer[] { pos[1], pos[0] });
                         }
                         placeStones();              
                         drawToGui();
@@ -178,19 +188,14 @@ public class GameController implements Runnable {
                         break;
                     }
                     if (currentPlayer.getColor().equals(Token.BLACK)) {
-            			int point_x_origin = appUI.displayModalDialog(
-            					ApplicationDialogType.QUESTION, "Where was the piece on x?", 
-            					"0", "1", "2", "3", "4", "5", "6");
-            			int point_y_origin = appUI.displayModalDialog(
-            					ApplicationDialogType.QUESTION, "Where was the piece on y?", 
-            					"0", "1", "2", "3", "4", "5", "6");
-            			int point_x_dest = appUI.displayModalDialog(
-            					ApplicationDialogType.QUESTION, "Where do you want to place it on x?", 
-            					"0", "1", "2", "3", "4", "5", "6");
-            			int point_y_dest = appUI.displayModalDialog(
-            					ApplicationDialogType.QUESTION, "Where do you want to place it on y?", 
-            					"0", "1", "2", "3", "4", "5", "6");
-            			this.userInput.write(new Integer[] { point_y_origin, point_x_origin, point_y_dest, point_x_dest });
+                    	
+            			Boolean[] new_field = new Boolean[24];
+            			new_field = modbus_client.getFromCamera();
+            			int[] changed = YourApplication.board_points.compareForChangesMove(new_field);
+            			int[] pos_old = YourApplication.board_points.getFieldByNumber(changed[0]);
+            			int[] pos_new = YourApplication.board_points.getFieldByNumber(changed[1]);
+
+            			this.userInput.write(new Integer[] { pos_old[1], pos_old[0], pos_new[1], pos_new[0] });
                     }
                     moveStones();
                     drawToGui();
@@ -198,13 +203,13 @@ public class GameController implements Runnable {
                 case TAKE:
                 	Logger.log(currentPlayer.getColor() + "'s turn to " + currentState);
                     if (currentPlayer.getColor().equals(Token.BLACK)) {
-	        			int point_x = appUI.displayModalDialog(
-	        					ApplicationDialogType.QUESTION, "Where did you take it on x?", 
-	        					"0", "1", "2", "3", "4", "5", "6");
-	        			int point_y = appUI.displayModalDialog(
-	        					ApplicationDialogType.QUESTION, "Where did you take it on y?", 
-	        					"0", "1", "2", "3", "4", "5", "6");
-	        			this.userInput.write(new Integer[] { point_y, point_x });
+                    	
+            			Boolean[] new_field = new Boolean[24];
+            			new_field = modbus_client.getFromCamera();
+            			int changed = YourApplication.board_points.compareForChangesTake(new_field);
+            			int[] pos = YourApplication.board_points.getFieldByNumber(changed);
+            			
+	        			this.userInput.write(new Integer[] { pos[1], pos[0] });
                     }
                     takeStone();
                     drawToGui();
@@ -245,6 +250,9 @@ public class GameController implements Runnable {
         try {
             boolean legalSetMove = GameRuleController.isLegalSetMove(field, move);
             if (legalSetMove) {
+            	int destNr = YourApplication.board_points.getFieldByCoords(move.getDest().x, move.getDest().y);
+            	YourApplication.board_points.field_bool[destNr] = true;
+            	
                 field.setFieldStatus(move.getDest().x, move.getDest().y, currentPlayer.getColor());
                 if (currentPlayer.getColor().equals(Token.WHITE)) {
                 	Logger.log("Robots move:");
@@ -294,6 +302,11 @@ public class GameController implements Runnable {
         try {
             if (GameRuleController.isLegalMove(field, move, currentPlayer)) {
                 field.applyMove(move, currentPlayer.getColor());
+            	int sourceNr = YourApplication.board_points.getFieldByCoords(move.getSource().x, move.getSource().y);
+            	YourApplication.board_points.field_bool[sourceNr] = false;
+            	int destNr = YourApplication.board_points.getFieldByCoords(move.getDest().x, move.getDest().y);
+            	YourApplication.board_points.field_bool[destNr] = true;
+            	
                 if (currentPlayer.getColor().equals(Token.WHITE)) {
                 	Logger.log("Robots move:");
                 	robot_interactions.movePiece(
@@ -343,7 +356,8 @@ public class GameController implements Runnable {
             Move move = currentPlayer.getRemoveMove(field);
             if (GameRuleController.isLegalRemoveMove(field, move, currentPlayer.getColor())) {
                 try {
-                    
+                	int destNr = YourApplication.board_points.getFieldByCoords(move.getDest().x, move.getDest().y);
+                	YourApplication.board_points.field_bool[destNr] = false;
                     boolean couldRemoveStoneAtPosition = field.removeStoneAtPosition(enemy, move.getDest().x, move.getDest().y);
                     if (currentPlayer.getColor().equals(Token.WHITE)) {
                     	Logger.log("Robot takes piece:");

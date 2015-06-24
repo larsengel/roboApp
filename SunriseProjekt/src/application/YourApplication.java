@@ -40,7 +40,6 @@ public class YourApplication extends RoboticsAPIApplication {
 	private RobotInteractions robot_interactions;
 	public static BoardPoints board_points;
 	public Logger logger;
-	ModbusClient modbus_client;
 	
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
@@ -51,8 +50,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		robot_movements = new RobotMovements(gripper, getApplicationData().getFrame("/robot_rest"), getApplicationUI());	
 		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements);
 		logger = new Logger(getLogger());
-		modbus_client = new ModbusClient();
-		}
+	}
 	
 	public void run() {
 		
