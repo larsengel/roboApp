@@ -188,7 +188,8 @@ public class GameController implements Runnable {
                         break;
                     }
                     if (currentPlayer.getColor().equals(Token.BLACK)) {
-                    	
+                        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Moved piece?","OK");
+
             			Boolean[] new_field = new Boolean[24];
             			new_field = modbus_client.getFromCamera();
             			int[] changed = YourApplication.board_points.compareForChangesMove(new_field);
@@ -203,7 +204,8 @@ public class GameController implements Runnable {
                 case TAKE:
                 	Logger.log(currentPlayer.getColor() + "'s turn to " + currentState);
                     if (currentPlayer.getColor().equals(Token.BLACK)) {
-                    	
+                        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Took piece?","OK");
+
             			Boolean[] new_field = new Boolean[24];
             			new_field = modbus_client.getFromCamera();
             			int changed = YourApplication.board_points.compareForChangesTake(new_field);
