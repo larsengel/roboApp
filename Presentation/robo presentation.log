@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.17)  25 JUN 2015 11:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.12)  28 JUN 2015 16:19
 entering extended mode
 **robo*presentation.tex
-("E:\Projects\roboApp\Presentation\robo presentation.tex"
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -903,7 +903,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\newline' on input line 22.
 
-("E:\Projects\roboApp\Presentation\robo presentation.aux")
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
@@ -982,8 +982,8 @@ LaTeX Info: Redefining \ref on input line 35.
 LaTeX Info: Redefining \pageref on input line 35.
 LaTeX Info: Redefining \nameref on input line 35.
 
-("E:\Projects\roboApp\Presentation\robo presentation.out")
-("E:\Projects\roboApp\Presentation\robo presentation.out")
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.out")
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.out")
 \@outlinefile=\write6
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 35.
@@ -1082,7 +1082,7 @@ File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
 Package xypdf Info: Line width: 0.43799pt on input line 35.
- ("E:\Projects\roboApp\Presentation\robo presentation.nav")
+ ("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.nav")
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <4> not available
 (Font)              size <5> substituted on input line 48.
@@ -1091,42 +1091,41 @@ LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <4> not available
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 48.
 
-[1{C:/Users/lars.engel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 ]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [2
-
-] [3
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.toc") [2
 
 ]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [4
+[3
+
+] ("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.toc")
+[4
 
 ] [5
 
-]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [6
+] ("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.toc")
+[6
 
 ] [7
 
-]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [8
+] ("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.toc")
+[8
 
 ] [9
 
-]
-<imgs/stories.jpg, id=385, 1144.275pt x 436.63126pt>
+] <imgs/stories.jpg, id=385, 1144.275pt x 436.63126pt>
 File: imgs/stories.jpg Graphic file (type jpg)
- <use imgs/stories.jpg>
+
+<use imgs/stories.jpg>
 Package pdftex.def Info: imgs/stories.jpg used on input line 107.
 (pdftex.def)             Requested size: 355.65944pt x 135.71405pt.
+ [10
 
-[10
+ <C:/Users/Lars/Desktop/roboApp/Presentation/imgs/stories.jpg>] ("C:\Users\Lars
+\Desktop\roboApp\Presentation\robo presentation.toc") [11
 
- <E:/Projects/roboApp/Presentation/imgs/stories.jpg>]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [11
-
-]
-<imgs/classDiagram.jpg, id=455, 1495.5875pt x 699.61375pt>
+] <imgs/classDiagram.jpg, id=455, 1495.5875pt x 699.61375pt>
 File: imgs/classDiagram.jpg Graphic file (type jpg)
 
 <use imgs/classDiagram.jpg>
@@ -1134,14 +1133,14 @@ Package pdftex.def Info: imgs/classDiagram.jpg used on input line 121.
 (pdftex.def)             Requested size: 355.65944pt x 166.37349pt.
  [12
 
- <E:/Projects/roboApp/Presentation/imgs/classDiagram.jpg>] <imgs/safety.png, id
-=485, 590.205pt x 238.64156pt>
+ <C:/Users/Lars/Desktop/roboApp/Presentation/imgs/classDiagram.jpg>] <imgs/safe
+ty.png, id=485, 590.95781pt x 241.65282pt>
 File: imgs/safety.png Graphic file (type png)
 
 <use imgs/safety.png>
 Package pdftex.def Info: imgs/safety.png used on input line 139.
-(pdftex.def)             Requested size: 352.814pt x 142.65802pt.
- <imgs/safety_02.png, id=487, 478.78876pt x 24.09pt>
+(pdftex.def)             Requested size: 352.814pt x 144.27377pt.
+ <imgs/safety_02.png, id=486, 478.78876pt x 24.09pt>
 File: imgs/safety_02.png Graphic file (type png)
 
 <use imgs/safety_02.png>
@@ -1149,9 +1148,9 @@ Package pdftex.def Info: imgs/safety_02.png used on input line 139.
 (pdftex.def)             Requested size: 284.52756pt x 14.31589pt.
  [13
 
- <E:/Projects/roboApp/Presentation/imgs/safety.png> <E:/Projects/roboApp/Presen
-tation/imgs/safety_02.png>]
-<imgs/camera.png, id=519, 1233.408pt x 664.28175pt>
+ <C:/Users/Lars/Desktop/roboApp/Presentation/imgs/safety.png> <C:/Users/Lars/De
+sktop/roboApp/Presentation/imgs/safety_02.png>]
+<imgs/camera.png, id=517, 1233.408pt x 664.28175pt>
 File: imgs/camera.png Graphic file (type png)
  <use imgs/camera.png>
 Package pdftex.def Info: imgs/camera.png used on input line 149.
@@ -1159,15 +1158,27 @@ Package pdftex.def Info: imgs/camera.png used on input line 149.
 
 [14
 
- <E:/Projects/roboApp/Presentation/imgs/camera.png>] [15
+ <C:/Users/Lars/Desktop/roboApp/Presentation/imgs/camera.png>]
+<imgs/communication.png, id=547, 851.43094pt x 499.8675pt>
+File: imgs/communication.png Graphic file (type png)
+
+<use imgs/communication.png>
+Package pdftex.def Info: imgs/communication.png used on input line 158.
+(pdftex.def)             Requested size: 355.65944pt x 208.80644pt.
+
+Overfull \vbox (8.97525pt too high) detected at line 158
+ []
+
+[15
+
+ <C:/Users/Lars/Desktop/roboApp/Presentation/imgs/communication.png>]
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.toc") [16
 
 ]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [16
+[17
 
-] [17
-
-]
-("E:\Projects\roboApp\Presentation\robo presentation.toc") [18
+] ("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.toc")
+[18
 
 ] [19
 
@@ -1177,12 +1188,12 @@ Package pdftex.def Info: imgs/camera.png used on input line 149.
 \tf@nav=\write7
 \tf@toc=\write8
 \tf@snm=\write9
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 194.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 194.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 199.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 199.
 
-("E:\Projects\roboApp\Presentation\robo presentation.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 194.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
+("C:\Users\Lars\Desktop\roboApp\Presentation\robo presentation.aux")
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 199.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 199.
 Package rerunfilecheck Info: File `robo*presentation.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
 
@@ -1190,13 +1201,13 @@ Package rerunfilecheck Info: File `robo*presentation.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 199.
  ) 
 Here is how much of TeX's memory you used:
- 18360 strings out of 493921
- 345772 string characters out of 3144861
+ 18365 strings out of 493921
+ 346166 string characters out of 3144879
  427449 words of memory out of 3000000
- 21122 multiletter control sequences out of 15000+200000
+ 21126 multiletter control sequences out of 15000+200000
  13650 words of font info for 51 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  56i,15n,62p,832b,569s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1205,9 +1216,9 @@ Here is how much of TeX's memory you used:
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/P
 rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on "robo presentation.pdf" (20 pages, 1223435 bytes).
+Output written on "robo presentation.pdf" (20 pages, 1471722 bytes).
 PDF statistics:
- 773 PDF objects out of 1000 (max. 8388607)
+ 772 PDF objects out of 1000 (max. 8388607)
  54 named destinations out of 1000 (max. 500000)
- 172 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
