@@ -72,8 +72,8 @@ public class ModbusClient {
 		        ReadMultipleRegistersResponse response;
 		        Boolean[] boardpoint_status = new Boolean[24];
 		        response = readRegisters(30010, 24);
-		        for(int i = 23, j = 0; i >= 0; i--, j++) {
-		        	int val = response.getRegisterValue(i);
+		        for(int j = 0; j <= 23; j++) {
+		        	int val = response.getRegisterValue(j);
 		        	if(val == 22127) {
 		        		boardpoint_status[j] = true;
 		        	} else {

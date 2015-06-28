@@ -60,6 +60,7 @@ public class RobotMovements {
 		if (firedCondInfo != null) {
 			ThreadUtil.milliSleep(1000);
 	        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "App Stopped...","Continue");
+			saveLinMove(destination);
 		}
 	}
 	/**
@@ -77,6 +78,10 @@ public class RobotMovements {
 		if (firedCondInfo != null) {
 			ThreadUtil.milliSleep(1000);
 	        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "App Stopped...","Continue");
+			savePtpMove(destination);
 		}
+	}
+	public Frame getRest() {
+		return robot_rest;
 	}
 }

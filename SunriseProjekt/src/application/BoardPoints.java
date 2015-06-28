@@ -213,7 +213,9 @@ public class BoardPoints {
             	}
             }    
 		}
-		return null;
+		result[0] = 1; 	//not reachable point
+		result[1] = 2;
+		return result;
 	}
 	
 	public int getFieldByCoords(int _x, int _y) {

@@ -104,7 +104,7 @@ public class GameController implements Runnable {
         robot_interactions = _rI;
         appUI = _appUI;
 		try {
-			modbus_client = new ModbusClient("localhost");
+			modbus_client = new ModbusClient("172.31.1.5");
 		} catch (UnknownHostException e) {
 			// TODO Automatisch generierter Erfassungsblock
 			e.printStackTrace();
@@ -169,7 +169,8 @@ public class GameController implements Runnable {
                     	Logger.log(currentPlayer.getColor() + "'s turn to "
                                 + currentState);
                         if (currentPlayer.getColor().equals(Token.BLACK)) {
-                            appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Placed piece?","OK");
+                        	robot_interactions.waitforPlayerTouch();
+                            //appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Placed piece?","OK");
                                                         
 	            			Boolean[] new_field = new Boolean[24];
 	            			new_field = modbus_client.getFromCamera();
@@ -188,7 +189,8 @@ public class GameController implements Runnable {
                         break;
                     }
                     if (currentPlayer.getColor().equals(Token.BLACK)) {
-                        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Moved piece?","OK");
+                    	robot_interactions.waitforPlayerTouch();
+                    	//appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Moved piece?","OK");
 
             			Boolean[] new_field = new Boolean[24];
             			new_field = modbus_client.getFromCamera();
@@ -204,7 +206,9 @@ public class GameController implements Runnable {
                 case TAKE:
                 	Logger.log(currentPlayer.getColor() + "'s turn to " + currentState);
                     if (currentPlayer.getColor().equals(Token.BLACK)) {
-                        appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Took piece?","OK");
+                    	robot_interactions.wink();
+                    	robot_interactions.waitforPlayerTouch();
+                    	//appUI.displayModalDialog(ApplicationDialogType.INFORMATION, "Took piece?","OK");
 
             			Boolean[] new_field = new Boolean[24];
             			new_field = modbus_client.getFromCamera();
@@ -277,9 +281,13 @@ public class GameController implements Runnable {
                 }
             } else {
             	Logger.log("Not a legal move!");
+                robot_interactions.wink();
+                robot_interactions.wink();
             }
         } catch (GameException ex) {
         	Logger.log("Not a legal move!");
+            robot_interactions.wink();
+            robot_interactions.wink();
         }
     }
 
@@ -328,9 +336,13 @@ public class GameController implements Runnable {
                 }
             } else {
             	Logger.log("Not a legal move!");
+                robot_interactions.wink();
+                robot_interactions.wink();
             }
         } catch (GameException ex) {
         	Logger.log("Not a legal move!");
+            robot_interactions.wink();
+            robot_interactions.wink();
         }
     }
 
@@ -373,15 +385,21 @@ public class GameController implements Runnable {
                     }
                     if (!couldRemoveStoneAtPosition) {
                         sendToGui("Not a legal move!");
+                        robot_interactions.wink();
+                        robot_interactions.wink();
                         return;
                     }                    
                     
                 } catch (GameException ex) {
                 	Logger.log("Not a legal move!");
+                    robot_interactions.wink();
+                    robot_interactions.wink();
                     return;
                 }
             } else {
             	Logger.log("Not a legal move!");
+                robot_interactions.wink();
+                robot_interactions.wink();
                 return;
             }
             changePlayer();
@@ -431,6 +449,7 @@ public class GameController implements Runnable {
             currentPlayer = playerTwo;
         } else {
             currentPlayer = playerOne;
+            robot_interactions.wink();
         }
     }
 

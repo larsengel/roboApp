@@ -48,7 +48,7 @@ public class YourApplication extends RoboticsAPIApplication {
 		digitOut = new DigitalOutIOGroup(kuka_Sunrise_Cabinet_1);
 		gripper.attachTo(robot.getFlange());
 		robot_movements = new RobotMovements(gripper, getApplicationData().getFrame("/robot_rest"), getApplicationUI());	
-		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements);
+		robot_interactions = new RobotInteractions(gripper, digitOut, robot_movements, getObserverManager(), getApplicationData().getFrame("/wink"));
 		logger = new Logger(getLogger());
 	}
 	
@@ -57,7 +57,8 @@ public class YourApplication extends RoboticsAPIApplication {
 		board_points = new BoardPoints(getApplicationData().getFrame("/board_center"), 0, 
 				getApplicationData().getFrame("/piece_origin"), 
 				getApplicationData().getFrame("/piece_drop"));
-		board_points.calculateBoard();		 
+		board_points.calculateBoard();	
+		BoardPoints.nr_of_placed = 0;
 		
 		//modbus_client.getValue();
 		
