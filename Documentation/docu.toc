@@ -1,22 +1,21 @@
 \select@language {english}
 \select@language {english}
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
-\contentsline {section}{\numberline {2}Background}{1}{section.2}
-\contentsline {subsection}{\numberline {2.1}Explanation and Description of Robot}{1}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Explanation and Description of Camera}{1}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Explanation and Description of Ninemens Morris}{1}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Explanation and Description of the AI}{1}{subsection.2.4}
-\contentsline {section}{\numberline {3}Implementation}{1}{section.3}
-\contentsline {subsection}{\numberline {3.1}Description of Architecture with Class Diagram and maybe other diagrams like process diagram or state diagram}{1}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Our own classes}{1}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}RobotInteractions}{1}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}RobotMovements}{1}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}Bordpoints}{1}{subsubsection.3.2.3}
-\contentsline {subsubsection}{\numberline {3.2.4}Logger}{1}{subsubsection.3.2.4}
-\contentsline {subsection}{\numberline {3.3}How did we use the ai?}{1}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Changes in GameController}{1}{subsubsection.3.3.1}
-\contentsline {subsection}{\numberline {3.4}How did we use the camera?}{1}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}In-Sight Explorer}{1}{subsubsection.3.4.1}
-\contentsline {subsubsection}{\numberline {3.4.2}Communication between Robot and Camera}{1}{subsubsection.3.4.2}
-\contentsline {section}{\numberline {4}Evaluation}{1}{section.4}
-\contentsline {section}{\numberline {5}Conclusion and Future work}{1}{section.5}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Background}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Explanation and Description of Robot}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Explanation and Description of Camera}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Explanation and Description of Ninemens Morris}{2}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Explanation and Description of the AI}{2}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Setup}{2}{subsection.2.5}
+\contentsline {section}{\numberline {3}Implementation}{3}{section.3}
+\contentsline {subsection}{\numberline {3.1}Work on the artificial intelligence}{3}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Description of own classes}{3}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}RobotInteractions}{3}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}RobotMovements}{4}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Bordpoints}{4}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}Logger}{5}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.5}ModbusClient}{6}{subsubsection.3.2.5}
+\contentsline {subsection}{\numberline {3.3}Visual analysis}{6}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}In-Sight Explorer}{6}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Communication between Robot and Camera}{7}{subsubsection.3.3.2}
+\contentsline {section}{\numberline {4}Conclusion and Future work}{8}{section.4}

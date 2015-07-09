@@ -4,17 +4,16 @@
 \BOOKMARK [2][-]{subsection.2.2}{Explanation and Description of Camera}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Explanation and Description of Ninemens Morris}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{Explanation and Description of the AI}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{Implementation}{}% 7
-\BOOKMARK [2][-]{subsection.3.1}{Description of Architecture with Class Diagram and maybe other diagrams like process diagram or state diagram}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.2}{Our own classes}{section.3}% 9
-\BOOKMARK [3][-]{subsubsection.3.2.1}{RobotInteractions}{subsection.3.2}% 10
-\BOOKMARK [3][-]{subsubsection.3.2.2}{RobotMovements}{subsection.3.2}% 11
-\BOOKMARK [3][-]{subsubsection.3.2.3}{Bordpoints}{subsection.3.2}% 12
-\BOOKMARK [3][-]{subsubsection.3.2.4}{Logger}{subsection.3.2}% 13
-\BOOKMARK [2][-]{subsection.3.3}{How did we use the ai?}{section.3}% 14
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Changes in GameController}{subsection.3.3}% 15
-\BOOKMARK [2][-]{subsection.3.4}{How did we use the camera?}{section.3}% 16
-\BOOKMARK [3][-]{subsubsection.3.4.1}{In-Sight Explorer}{subsection.3.4}% 17
-\BOOKMARK [3][-]{subsubsection.3.4.2}{Communication between Robot and Camera}{subsection.3.4}% 18
-\BOOKMARK [1][-]{section.4}{Evaluation}{}% 19
-\BOOKMARK [1][-]{section.5}{Conclusion and Future work}{}% 20
+\BOOKMARK [2][-]{subsection.2.5}{Setup}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Implementation}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Work on the artificial intelligence}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Description of own classes}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.2.1}{RobotInteractions}{subsection.3.2}% 11
+\BOOKMARK [3][-]{subsubsection.3.2.2}{RobotMovements}{subsection.3.2}% 12
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Bordpoints}{subsection.3.2}% 13
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Logger}{subsection.3.2}% 14
+\BOOKMARK [3][-]{subsubsection.3.2.5}{ModbusClient}{subsection.3.2}% 15
+\BOOKMARK [2][-]{subsection.3.3}{Visual analysis}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.3.1}{In-Sight Explorer}{subsection.3.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Communication between Robot and Camera}{subsection.3.3}% 18
+\BOOKMARK [1][-]{section.4}{Conclusion and Future work}{}% 19

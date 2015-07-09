@@ -24,25 +24,45 @@
 \@writefile{toc}{\select@language{english}}
 \@writefile{lof}{\select@language{english}}
 \@writefile{lot}{\select@language{english}}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{1}{section.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Explanation and Description of Robot}{1}{subsection.2.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Explanation and Description of Camera}{1}{subsection.2.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Explanation and Description of Ninemens Morris}{1}{subsection.2.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Explanation and Description of the AI}{1}{subsection.2.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Implementation}{1}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Description of Architecture with Class Diagram and maybe other diagrams like process diagram or state diagram}{1}{subsection.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Our own classes}{1}{subsection.3.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}RobotInteractions}{1}{subsubsection.3.2.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}RobotMovements}{1}{subsubsection.3.2.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Bordpoints}{1}{subsubsection.3.2.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Logger}{1}{subsubsection.3.2.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}How did we use the ai?}{1}{subsection.3.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Changes in GameController}{1}{subsubsection.3.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}How did we use the camera?}{1}{subsection.3.4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}In-Sight Explorer}{1}{subsubsection.3.4.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Communication between Robot and Camera}{1}{subsubsection.3.4.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Evaluation}{1}{section.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion and Future work}{1}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{2}{section.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Explanation and Description of Robot}{2}{subsection.2.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Explanation and Description of Camera}{2}{subsection.2.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Explanation and Description of Ninemens Morris}{2}{subsection.2.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Explanation and Description of the AI}{2}{subsection.2.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Setup}{2}{subsection.2.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Implementation}{3}{section.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Work on the artificial intelligence}{3}{subsection.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The MainController thread is started by the robot thread. The MainController then starts the GameController thread.}}{3}{figure.1}}
+\newlabel{thread_diagram}{{1}{3}{The MainController thread is started by the robot thread. The MainController then starts the GameController thread}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Description of own classes}{3}{subsection.3.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}RobotInteractions}{3}{subsubsection.3.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Class diagram of the RobotInteractions class}}{3}{figure.2}}
+\newlabel{class_roboInt}{{2}{3}{Class diagram of the RobotInteractions class}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Class diagram of the RobotMovements class}}{4}{figure.3}}
+\newlabel{class_roboMov}{{3}{4}{Class diagram of the RobotMovements class}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}RobotMovements}{4}{subsubsection.3.2.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Code Listing of the RobotMovements class showing the SavePtpMove() method}}{4}{figure.4}}
+\newlabel{code_safety}{{4}{4}{Code Listing of the RobotMovements class showing the SavePtpMove() method}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Bordpoints}{4}{subsubsection.3.2.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Class diagram of the BoardPoints class}}{5}{figure.5}}
+\newlabel{class_boPo}{{5}{5}{Class diagram of the BoardPoints class}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Code Listing of the Boardpoints class showing the board points calculation}}{5}{figure.6}}
+\newlabel{code_points_calc}{{6}{5}{Code Listing of the Boardpoints class showing the board points calculation}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Logger}{5}{subsubsection.3.2.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Class diagram of the Logger class}}{5}{figure.7}}
+\newlabel{class_lo}{{7}{5}{Class diagram of the Logger class}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Class diagram of the ModbusClient class}}{6}{figure.8}}
+\newlabel{class_moCli}{{8}{6}{Class diagram of the ModbusClient class}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.5}ModbusClient}{6}{subsubsection.3.2.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Visual analysis}{6}{subsection.3.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}In-Sight Explorer}{6}{subsubsection.3.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Different approaches for visual analysis}}{7}{figure.9}}
+\newlabel{camera_00}{{9}{7}{Different approaches for visual analysis}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Communication between Robot and Camera}{7}{subsubsection.3.3.2}}
+\newlabel{commu}{{3.3.2}{7}{Communication between Robot and Camera}{subsubsection.3.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Communication between Camera and Robot}}{8}{figure.10}}
+\newlabel{communication}{{10}{8}{Communication between Camera and Robot}{figure.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion and Future work}{8}{section.4}}
 \bibstyle{babunsrt-lf}
 \bibdata{references}
