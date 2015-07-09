@@ -91,7 +91,7 @@
 %  can be indicated with a superscript in italics, 
 %  which is easily obtained with \supit{}.
 
-\author{Lars Engel, Vikash Vikash, Ahsan Yousuf
+\author{Lars Engel, Vikash, Ahsan Yousuf
 \\\textit{\\Faculty of Computer Science and Electrical Engineering
 \\Fachhochschule Kiel: University of Applied Sciences\\ Kiel, Germany}
 }
@@ -126,17 +126,48 @@ Just a short introduction for motivation of project (why should we let the robot
 \subsection{Explanation and Description of Ninemens Morris}
 \subsection{Explanation and Description of the AI}
 \section{Implementation}
-\subsection{Description of Architecture with Class Diagram and maybe other diagrams like process diagram or state diagram}
-\subsection{Our own classes}
+
+\subsection{Description of Classes}
 \subsubsection{RobotInteractions}
+\begin{figure}[h]
+\includegraphics[width=15cm]{images/class_roboInt.png}
+\centering
+\caption{Class diagram of the RobotInteractions class}
+\end{figure}
 \subsubsection{RobotMovements}
+\begin{figure}[h]
+\includegraphics[width=12cm]{images/class_roboMov.png}
+\centering
+\caption{Class diagram of the RobotMovements class}
+\end{figure}
 \subsubsection{Bordpoints}
+\begin{figure}[h]
+\includegraphics[width=15cm]{images/class_boPo.png}
+\centering
+\caption{Class diagram of the BoardPoints class}
+\end{figure}
 \subsubsection{Logger}
+\begin{figure}[h]
+\includegraphics[width=4cm]{images/class_lo.png}
+\centering
+\caption{Class diagram of the Logger class}
+\end{figure}
+\subsubsection{ModbusClient}
+\begin{figure}[h]
+\includegraphics[width=12cm]{images/class_moCli.png}
+\centering
+\caption{Class diagram of the ModbusClient class}
+\end{figure}
 \subsection{How did we use the ai?}
 \subsubsection{Changes in GameController}
 \subsection{How did we use the camera?}
 \subsubsection{In-Sight Explorer}
 \subsubsection{Communication between Robot and Camera}
+\begin{figure}[h]
+\includegraphics[width=15cm]{images/communication.png}
+\centering
+\caption{Communication between Camera and Robot}
+\end{figure}
 \section{Evaluation}
 Not sure if we need this or what we should write here...
 \section{Conclusion and Future work}
