@@ -15,7 +15,15 @@
 \contentsline {subsubsection}{\numberline {3.2.3}Bordpoints}{4}{subsubsection.3.2.3}
 \contentsline {subsubsection}{\numberline {3.2.4}Logger}{5}{subsubsection.3.2.4}
 \contentsline {subsubsection}{\numberline {3.2.5}ModbusClient}{6}{subsubsection.3.2.5}
-\contentsline {subsection}{\numberline {3.3}Visual analysis}{6}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}In-Sight Explorer}{6}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}Communication between Robot and Camera}{7}{subsubsection.3.3.2}
-\contentsline {section}{\numberline {4}Conclusion and Future work}{8}{section.4}
+\contentsline {subsection}{\numberline {3.3}Game Board}{6}{subsection.3.3}
+\contentsline {paragraph}{6x6 Matrix of Game Points}{6}{section*.2}
+\contentsline {paragraph}{Array of 24 Boolean Values}{6}{section*.3}
+\contentsline {subsection}{\numberline {3.4}Visual analysis}{6}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}In-Sight Explorer}{7}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Communication between Robot and Camera}{8}{subsubsection.3.4.2}
+\contentsline {section}{\numberline {4}Conclusion and Future work}{10}{section.4}
+\contentsline {paragraph}{Better cheat handling:}{10}{section*.4}
+\contentsline {paragraph}{Board rotation:}{10}{section*.5}
+\contentsline {paragraph}{Visual analysis:}{10}{section*.6}
+\contentsline {paragraph}{Improvement of safety:}{10}{section*.7}
+\contentsline {paragraph}{Human Computer Interaction:}{11}{section*.8}

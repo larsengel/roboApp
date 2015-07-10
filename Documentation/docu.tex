@@ -87,6 +87,7 @@ Just a short introduction for motivation of project (why should we let the robot
 \subsection{Explanation and Description of Ninemens Morris}
 \subsection{Explanation and Description of the AI}
 \subsection{Setup}
+
 \newpage
 \section{Implementation}
 \subsection{Work on the artificial intelligence}
@@ -124,6 +125,7 @@ The RobotsMovements class shown in Figure \ref{class_roboMov} provides special m
 \end{figure}
 As shown in Figure \ref{code_safety} the \emph{savePtpMove(AbstractFrame destination)} method calls the \emph{move()} method of the \emph{IMotionContainer} class from the KUKA libraries with a \textit{breakWhen()} condition attached to that. This means that the movement will stop, when the specified ForceCondition will be fired. In case the ForceCondition was fired the movement will be stopped, the robot will wait for a second and a dialog will be shown on the KUKA Smartpad. The user then has to click on this dialog so that the movement can be repeated.
 \subsubsection{Bordpoints}
+\label{sec:boardpoints}
 \begin{figure}[h]
 \includegraphics[width=15cm]{images/class_boPo.png}
 \centering
@@ -156,7 +158,22 @@ The logger class shown in Figure \ref{class_lo} is instantiated as a static obje
 \end{figure}
 The ModbusClient class shown in Figure \ref{class_moCli} is responsible for the communication between the camera and the robot. As described in section \ref{commu} the communication is realized with Modbus/TCP. The ModbusClient class is instantiated inside the GameController of the artificial intelligence. The GameController calls the \emph{getFromCamera()} method which uses the \emph{readRegisters(int register, int length)} method to read the specified registers from the Modbus/TCP server provided by the camera. 
 
+\subsection{Game Board}
+The 24 points on the game board, where a game token can be placed are stored in two different formats:
+\paragraph{6x6 Matrix of Game Points}
+The artificial intelligence stores the game points in a multidimensional array with a size of six by six. Each array element is of type \emph{Token}, which is an enumeration, that can have either the value \emph{BLACK}, \emph{WHITE} or \emph{EMPTY}. The array serves as a 6x6 matrix. This matrix is visualized on the game board as shown in Figure \ref{setup_board}. It can be seen that not all field of the matrix belong to the game. The points \{1,0\}, \{1,2\}, \{1,4\} and \{1,6\} for example do not belong to the game. Therefore the AI implements a method to compute all \emph{illegal game points}.\\
+\begin{figure}[h]
+\includegraphics[width=10cm]{images/setup_board.png}
+\centering
+\caption{Setup of the Gameboard}
+\label{setup_board}
+\end{figure}
+The coordinates for all game points are also stored as a multidimensional array with a size of six by six. This simplified the use of different methods provided by the AI, because no conversion between different formats was needed. For example the method \emph{getDest} of the class \emph{Move} from the AI returns the x and y coordinates of destination of the next move. These coordinates can be given to the \emph{RobotInteractions} class without conversion.
+\paragraph{Array of 24 Boolean Values}
+Information about the game board is also stored as an array of 24 boolean values. A field, where a game token is placed, has the value \emph{true} in this array. A field where no token is placed has the value \emph{false}. This format does not distinguish between black or white tokens. But since this information is stored in the AI, it is not necessary to store it again. The array is used for evaluating changed on the game board detected by the camera.
+
 \subsection{Visual analysis}
+\label{visual_analysis}
 The visual analysis of the game was realized with an Cognex In-Sight 7000 Integrated Vision System. 
 \subsubsection{In-Sight Explorer}
 With the help of the Cognex In-Sight Explorer it was possible to create jobs to analyze the image captured by the camera.\\
@@ -180,9 +197,15 @@ The communication as shown in Figure \ref{communication} uses the Modbus/TCP pro
 \label{communication}
 \end{figure}
 
-
+\newpage
 \section{Conclusion and Future work}
-\end{large}
+The project was successfully completed since it is possible that a human can play Nine Men's Morris against the robot. The robot can sense and process its environment through the camera, so playing the game as a human feels very natural. The robot interacts with the human. He signalizes the human when it is his turn. \\ 
+Though the final product is playable there is still plenty of room for improvements:
+\paragraph{Better cheat handling:} The cheat handling is very rudimentary right now. The AI detects when an illegal move is done and does not accept such a move. The robot will \emph{shake} when an illegal move is done. Unfortunately the human player now has to put back the tokens where they where before he cheated. If he does not remember where the token belongs the game can not be continued. An improvement would be to have the robot solve such a situation by placing a misplaced token where it belongs.
+\paragraph{Board rotation:} As already mentioned in section \ref{visual_analysis} the game has to be placed at a fixed angle. This limitation should be resolved in a future version of the application. The robot application is already prepared for such an improvement (see section \ref{sec:boardpoints}). A job for the camera, that is able to detect the rotation of the board precisely is necessary to resolve this situation. The best implementation would be a job that is not only able to detect the rotation of the board at the beginning of the game but also detect changes of the rotation and position of the game board while the game is running.   
+\paragraph{Visual analysis:} The detection of the placed tokens is not very robust right now. It depends very much on the lightning how well the tokens can be recognized. Especially the white tokens are difficult to detect since, under sum conditions, their contrast and color does not differ very much from the game board, which has a similar color since the camera is only detecting black and white. The camera that was available has only low features for visual analysis and the computational power is also low. Changing on a more powerful camera could make the application more robust. Since the robot application is not deeply connected to the visual analysis done by the camera, it would be very easy to exchange the camera. If the new camera could also be used as an Modbus/TCP server, no changes at all would be needed inside the robot application. 
+\paragraph{Improvement of safety:} The implemented safety features could also be improved. The application will stop a movement if a specific \emph{ForceCondition} was fired. After that the robot will try to do the same movement again. But when a movement is not possible, because an immovable object is in its ways, this will lead to a infinite loop since the robot will try again and again to complete its movement. A better solution would be to enable the human player to stop the application, when the \emph{ForCondition} was fired.
+\paragraph{Human Computer Interaction:} To improve the usability and game play feeling the interaction between the human and the robot should be enhanced. It could be for example possible to implement speech recognition, so that the human player can say \emph{I am ready} to let the robot know, when it is his turn. The robot on the other hand could also say something to the human player to inform him about the game situation (e.g. \emph{Oh I have a mill, now I can take on of your tokens!}) or he could comment on movements of the human (e.g. congratulate for a good move)
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,5 +214,5 @@ The communication as shown in Figure \ref{communication} uses the Modbus/TCP pro
 %\bibliographystyle{spiebib}   %>>>> makes bibtex use spiebib.bst
 \bibliography{references}   %>>>> bibliography data in report.bib
 
-
+\end{large}
 \end{document} 
