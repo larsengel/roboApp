@@ -21,9 +21,10 @@
 \contentsline {subsection}{\numberline {3.4}Visual analysis}{8}{subsection.3.4}
 \contentsline {subsubsection}{\numberline {3.4.1}In-Sight Explorer}{8}{subsubsection.3.4.1}
 \contentsline {subsubsection}{\numberline {3.4.2}Communication between Robot and Camera}{9}{subsubsection.3.4.2}
-\contentsline {section}{\numberline {4}Conclusion and Future work}{11}{section.4}
-\contentsline {paragraph}{Better cheat handling:}{11}{section*.4}
-\contentsline {paragraph}{Board rotation:}{11}{section*.5}
-\contentsline {paragraph}{Visual analysis:}{11}{section*.6}
-\contentsline {paragraph}{Improvement of safety:}{11}{section*.7}
-\contentsline {paragraph}{Human Computer Interaction:}{12}{section*.8}
+\contentsline {subsection}{\numberline {3.5}Workflow}{10}{subsection.3.5}
+\contentsline {section}{\numberline {4}Conclusion and Future work}{12}{section.4}
+\contentsline {paragraph}{Better cheat handling:}{12}{section*.4}
+\contentsline {paragraph}{Board rotation:}{12}{section*.5}
+\contentsline {paragraph}{Visual analysis:}{12}{section*.6}
+\contentsline {paragraph}{Improvement of safety:}{12}{section*.7}
+\contentsline {paragraph}{Human Computer Interaction:}{13}{section*.8}

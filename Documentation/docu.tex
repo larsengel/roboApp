@@ -77,7 +77,7 @@ The setup of the project is shown in Figure \ref{setup_overview}. The robot is m
 \clearpage
 \section{Implementation}
 \subsection{Work on the artificial intelligence}
-To simplify the use of the AI, some code was written directly into the classes of the AI. The most important class of the AI, which is responsible for organizing the game flow, is the \emph{GameController}. It runs in an own thread and is started by the \emph{MainController}, which is also part of the AI. (See Figure \ref{thread_diagram})\\
+To simplify the use of the AI, some code was written directly into the classes of the AI. The most important class of the AI, which is responsible for organizing the game flow, is the \emph{GameController}. It runs in an own thread and is started by the \emph{MainController}, which is also part of the AI (see Figure \ref{thread_diagram}).\\
 To be able to use the self written classes inside of the GameController, it was necessary to forward the classes, that where instantiated inside the robot thread, through the MainController to the GameController.
 \begin{figure}[h]
 \includegraphics[width=15cm]{images/diagram.png}
@@ -102,7 +102,7 @@ The \emph{RobotInteractions} class shown in Figure \ref{class_roboInt} provides 
 \caption{Class diagram of the RobotMovements class}
 \label{class_roboMov}
 \end{figure}
-The RobotsMovements class shown in Figure \ref{class_roboMov} provides special movement methods like the \emph{moveToRest()} method which moves the robot to its rest position. It is important to move the robot to this position so that the camera, which is attached upright to the game board, can get a clear view (See Figure \ref{setup_overview}). \\
+The RobotsMovements class shown in Figure \ref{class_roboMov} provides special movement methods like the \emph{moveToRest()} method which moves the robot to its rest position. It is important to move the robot to this position so that the camera, which is attached upright to the game board, can get a clear view (see Figure \ref{setup_overview}). \\
 The class also provides the methods \emph{saveLinMove(AbstractFrame destination)} and \emph{savePtpMove(AbstractFrame destination)}. These are methods which where  created to enable safety for the human player. Since the robot is interacting in the same space where the human is also interacting, it is important to ensure that the human player will not be harmed by the robot. \\
 \begin{figure}[h]
 \includegraphics[width=18cm]{images/code_safety.png}
@@ -170,8 +170,8 @@ With the help of the Cognex In-Sight Explorer it was possible to create jobs to 
 \caption{Different approaches for visual analysis}
 \label{camera_00}
 \end{figure}
-It was the intention to create a job that can analyze the positions of game tokens on the board considering the rotation of the board. To accomplish this, the job should detect the corners of the game board. These corners then could be connected. The intersection between the two lines, that cross the game board will be the center of the game board (See Figure \ref{camera_00} part one). Comparing the angle of one of the lines with a reference line with an angle of 0 degrees provides the information about the rotation of the game board.\\ Unfortunately the detection of the board corners did not work as precise as needed. This lead to the problem that the rotation of the board could not be analyzed correctly. A wrong angle of the board would lead to wrong calculations for the board points. Since it is important, that the location of the board points are precise, so that the robot moves and takes pieces from the correct coordinates, the decision was made to use a fixed rotation for the game board. This is a limitation that could be resolved in a following project.\\
-The detection of the tokens is realized with a tool of the In-Sight Explorer that detects circles at specific locations (See Figure \ref{camera_00} part two). It will output a message "available", if a circle was found at this location and another message "not available", if no circle was found at this location. The tool is not able to determine the color of the found circles. But since nine men's  morris is a game, that is played in turns, we can get the information about the color of the tokens within the robot application. On the downside, this limits the ability of cheat or misplaced game token detection.
+It was the intention to create a job that can analyze the positions of game tokens on the board considering the rotation of the board. To accomplish this, the job should detect the corners of the game board. These corners then could be connected. The intersection between the two lines, that cross the game board will be the center of the game board (see Figure \ref{camera_00} part one). Comparing the angle of one of the lines with a reference line with an angle of 0 degrees provides the information about the rotation of the game board.\\ Unfortunately the detection of the board corners did not work as precise as needed. This lead to the problem that the rotation of the board could not be analyzed correctly. A wrong angle of the board would lead to wrong calculations for the board points. Since it is important, that the location of the board points are precise, so that the robot moves and takes pieces from the correct coordinates, the decision was made to use a fixed rotation for the game board. This is a limitation that could be resolved in a following project.\\
+The detection of the tokens is realized with a tool of the In-Sight Explorer that detects circles at specific locations (see Figure \ref{camera_00} part two). It will output a message "available", if a circle was found at this location and another message "not available", if no circle was found at this location. The tool is not able to determine the color of the found circles. But since nine men's  morris is a game, that is played in turns, we can get the information about the color of the tokens within the robot application. On the downside, this limits the ability of cheat or misplaced game token detection.
 
 
 \subsubsection{Communication between Robot and Camera}
@@ -183,7 +183,16 @@ The communication as shown in Figure \ref{communication} uses the Modbus/TCP pro
 \caption{Communication between Camera and Robot}
 \label{communication}
 \end{figure}
-
+\subsection{Workflow}
+The main story \emph{As a human I want to play Nune Men's Morris against a robot} was divided into smaller stories (see Figure \ref{stories}). These sub-stories could be categorized into the areas \emph{robot} and \emph{camera}.
+\begin{figure}[h]
+\includegraphics[width=15cm]{images/stories.jpg}
+\centering
+\caption{Division of the main story into smaller stories}
+\label{stories}
+\end{figure}
+The sub-stories again could be divided into smaller stories. This process was done, until a list of all needed requirements was available.\\
+To enable project version control and to make working on individual parts possible a Git repository\footnote{https://git-scm.com/} was set up. The project plan was documented in a Microsoft Excel document and a Laboratory Journal was used during the whole project.
 \clearpage
 \section{Conclusion and Future work}
 The project was successfully completed since it is possible that a human can play Nine Men's Morris against the robot. The robot can sense and process its environment through the camera, so playing the game as a human feels very natural. The robot interacts with the human. He signalizes the human when it is his turn. \\ 
