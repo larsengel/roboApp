@@ -1,5 +1,6 @@
 \documentclass[a4paper]{spie}  %>>> use for US letter paper
-%\renewcommand{\baselinestretch}{1.3}   %>>> 1.65 for double spacing
+%\renewcommand{\baselinestretch}{1.2}   %>>> 1.65 for double spacing
+%\renewcommand{\baselinestretch}{1.5} 
 
 \usepackage[]{graphicx}
 \usepackage{hyperref}
@@ -12,6 +13,7 @@
 }
 \usepackage{pdfpages}
 \usepackage{parcolumns}
+\usepackage{url}
 
 \usepackage[utf8]{inputenc} 
 \usepackage[english]{babel}
@@ -59,13 +61,37 @@
 
 
 \section{Introduction}
-Just a short introduction for motivation of project (why should we let the robot play this game?)
-\clearpage
+Today's important topic of research is robotics. Robots are used in many different industries. In the area of robotics one of the research areas is Human Robot Interaction (HRI). HRI is important for any robotics application where a human and a robot are both actuators. It is important that the HRI of a robot application is satisfying for the human so that no frustration arises while using the application.
+\\A good way of developing or researching in the area of HRI is to develop games, since the interaction in games is one of the key factors. By developing an application where a human is playing with or against a robot, which is acting as a second player and tries to be as human-like as possible while playing, different approaches of HRI can be researched and evaluated.   
+\\In this project an application was developed that allowed a human player play the strategy board game "Nine Men's Morris" against a robot. To enable the robot to sense its environment a camera was used to analyze the game area.
+\paragraph{}The remaining of this report is structured as followed: In Section 2 background information about used technologies is provided, in Section 3 the implementation of the project is described and in Section 4 a conclusion and an outlook is provided.
 \section{Background}
-\subsection{Explanation and Description of Robot}
-\subsection{Explanation and Description of Camera}
-\subsection{Explanation and Description of Ninemens Morris}
+\subsection{Explanation and Description of the Robot}
+The used robot was the KUKA LBR iiwa 7 R800\footnote{\url{http://www.kuka-robotics.com/germany/de/products/industrial_robots/sensitiv/lbr_iiwa_7_r800/start.htm}}, which is very light weight (23.9 Kg) robot and can be used for intelligent industrial work. The seven axis of the robot allow a flexible movement in all directions. The robot has integrated sensors to simplify the implementation of force detection.\\
+The robot can be programmed with the programming language Java and comes with a special IDE called KUKA Sunrise Workbench. Sunrise Workbench can also be used to load applications to the robot or to debug an application. 
+\subsection{Explanation and Description of the Camera}
+For visual analysis a Cognex In-Sight 7000 Integrated Vision System\footnote{\url{http://www.cognex.com/products/machine-vision/in-sight-7000-series-integrated-vision-systems}} was used. The size of camera is 75mm x 55mm
+x 47mm and the connectors are Industrial M12 connectors. The robust and intelligent camera can analyze an image by its own. The communication to other devices can be implemented easily, because the camera can be for example set up as a Modbus/TCP server that can be reached by any device in the same network. To create analysis jobs the software "In-Sight Explorer" can be used. The software provides all features of the camera in a easy understandable user interface.
+\subsection{Explanation and Description of Nine Men's Morris}
+Nine Men's Morris is a strategy board game for two players. In this project the role of the opponent player is taken by the robot.
+The board consists of a grid with twenty-four intersections or points. Each player has nine tokens, or "men", usually colored black and white. The Players try to form "mills" - three of their own men lined horizontally or vertically - allowing a player to remove an opponent's man from the game. A player wins by reducing the opponent to two pieces (where he could no
+longer form mills and thus be unable to win), or by leaving him without a legal move.
+\begin{figure}[h]
+\includegraphics[width=10cm]{images/mill.jpg}
+\centering
+\caption{Nine Men's Morris [source: \url{http://www.gamedesign.de/files/gamesdesign/u5/muehle-2.jpg}]}
+\label{mill}
+\end{figure}
+The game proceeds in three phases:
+\begin{enumerate}
+\item{\emph{Place:}\\At the beginning of the game all men of each player are placed beside the board. Sequentially each player now places his men on a free point. Creating a mill during this phase allows a player to take a placed men from the opponent player from the game board.}
+\item{\emph{Move:}\\When all men are placed on the game the players sequentially move their men on the game board. A men can be moved to a free vacant neighbor point on the game board. Creating a mill during this phase allows a player to take a placed men from the opponent player from the game board.}
+\item{\emph{Endgame:}\\When a player has only three men left, he can move its men to any point on the game board that is free. If the player now looses another men, which leaves him with only two men, the game is over and this player lost.}
+\end{enumerate}
+\clearpage
 \subsection{Explanation and Description of the AI}
+Artificial intelligence (AI) is the intelligence exhibited by machines or software. It is also the name of the academic field of study which studies how to create computers and computer software, that are capable of intelligent behavior. In this project AI was used as the brain of the robot so that the robot understands the rules of the game. 
+\\The provided AI system uses the \emph{Alpha-Beta Pruning} algorithm to determine the optimal strategy for the game play. This algorithm will not be explained in detail in this report. Information about the algorithm can be found e.g. in \footnote{D. J. Edwards \& T. P. Hart: The alpha-beta heuristic. Massachusetts Institute of Technology, 1963.}.\\
 \subsection{Setup}
 The setup of the project is shown in Figure \ref{setup_overview}. The robot is mounted on the table. It is connected via a LAN cable to a switch. The camera is attached to a beam at a fixed position and is also connected to the same switch. This way the robot and the camera will be in the same network and can communicate with each other.
 \begin{figure}[h]
@@ -105,7 +131,7 @@ The \emph{RobotInteractions} class shown in Figure \ref{class_roboInt} provides 
 The RobotsMovements class shown in Figure \ref{class_roboMov} provides special movement methods like the \emph{moveToRest()} method which moves the robot to its rest position. It is important to move the robot to this position so that the camera, which is attached upright to the game board, can get a clear view (see Figure \ref{setup_overview}). \\
 The class also provides the methods \emph{saveLinMove(AbstractFrame destination)} and \emph{savePtpMove(AbstractFrame destination)}. These are methods which where  created to enable safety for the human player. Since the robot is interacting in the same space where the human is also interacting, it is important to ensure that the human player will not be harmed by the robot. \\
 \begin{figure}[h]
-\includegraphics[width=18cm]{images/code_safety.png}
+\includegraphics[width=17cm]{images/code_safety.png}
 \centering
 \caption{Code Listing of the RobotMovements class showing the SavePtpMove() method}
 \label{code_safety}
@@ -127,7 +153,7 @@ The BoardPoints class shown in Figure \ref{class_boPo} provides  all the informa
 \label{code_points_calc}
 \end{figure}
 Figure \ref{code_points_calc} shows the calculation for the board point 0, 0 which is the point in the lower left corner. The calculation uses the center point of the board and the angle of rotation of the board to calculate the coordinates for each game point. The plan was to  get the center point and the angle of the board from the camera, but unfortunately the detection of the created jobs was not precise enough to get the correct angle of the board. So in this project the board needed to stay at a fixed angle. But with a correct working method to get the current angle from e.g. the camera this class is already prepared to compute the points based on the rotation of the board.
-
+\clearpage
 \subsubsection{Logger}
 \begin{figure}[h]
 \includegraphics[width=4cm]{images/class_lo.png}
@@ -183,8 +209,10 @@ The communication as shown in Figure \ref{communication} uses the Modbus/TCP pro
 \caption{Communication between Camera and Robot}
 \label{communication}
 \end{figure}
+\clearpage
 \subsection{Workflow}
-The main story \emph{As a human I want to play Nune Men's Morris against a robot} was divided into smaller stories (see Figure \ref{stories}). These sub-stories could be categorized into the areas \emph{robot} and \emph{camera}.
+\paragraph{Getting into the topic:} Since all project members where new to the area of robotics at the beginning of the project some small applications where created to become familiar with the topic. Such applications for example moved the robot to specific coordinates or handled force input on different ways.
+\paragraph{Creation of user stories:} The main story \emph{As a human I want to play Nune Men's Morris against a robot} was divided into smaller stories (see Figure \ref{stories}). These sub-stories could be categorized into the areas \emph{robot} and \emph{camera}.
 \begin{figure}[h]
 \includegraphics[width=15cm]{images/stories.jpg}
 \centering
@@ -192,7 +220,8 @@ The main story \emph{As a human I want to play Nune Men's Morris against a robot
 \label{stories}
 \end{figure}
 The sub-stories again could be divided into smaller stories. This process was done, until a list of all needed requirements was available.\\
-To enable project version control and to make working on individual parts possible a Git repository\footnote{https://git-scm.com/} was set up. The project plan was documented in a Microsoft Excel document and a Laboratory Journal was used during the whole project.
+\paragraph{Project Management:} To enable project version control and to make working on individual parts possible a Git repository\footnote{https://git-scm.com/} was set up. The project plan was documented in a Microsoft Excel document and a Laboratory Journal was used during the whole project.
+
 \clearpage
 \section{Conclusion and Future work}
 The project was successfully completed since it is possible that a human can play Nine Men's Morris against the robot. The robot can sense and process its environment through the camera, so playing the game as a human feels very natural. The robot interacts with the human. He signalizes the human when it is his turn. \\ 
