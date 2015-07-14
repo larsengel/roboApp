@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.12)  10 JUL 2015 10:35
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.17)  14 JUL 2015 11:07
 entering extended mode
 **docu.tex
-(C:\Users\Lars\Desktop\roboApp\Documentation\docu.tex
+(E:\Projects\roboApp\Documentation\docu.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -13,7 +13,7 @@ german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-(C:\Users\Lars\Desktop\roboApp\Documentation\spie.cls
+(E:\Projects\roboApp\Documentation\spie.cls
 Document Class: spie 2008/01/19 v3.3 SPIE Proceedings class
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
@@ -216,10 +216,10 @@ File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
-Package hyperref Info: Option `colorlinks' set `true' on input line 33.
+Package hyperref Info: Option `colorlinks' set `true' on input line 12.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
-Package: pdfpages 2015/05/11 v0.4x Insert pages of external PDF documents (AM)
+Package: pdfpages 2015/06/15 v0.4y Insert pages of external PDF documents (AM)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
@@ -258,7 +258,15 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 \AM@pageheight=\dimen116
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
-File: pppdftex.def 2015/05/11 v0.4x Pdfpages driver for pdfTeX (AM)
+File: pppdftex.def 2015/06/15 v0.4y Pdfpages driver for pdfTeX (AM)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty"
+Package: pdflscape 2008/08/11 v0.10 Display of landscape pages in PDF (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\lscape.sty"
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
 )
 \AM@pagebox=\box28
 \AM@toc@title=\toks16
@@ -532,21 +540,21 @@ Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
 Package: babelbib 2012/01/03 v1.31 babelbib: multilingual bibliographies (HH)
 \c@btxromaniannumeral=\count114
 )
-(C:\Users\Lars\Desktop\roboApp\Documentation\docu.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
+(E:\Projects\roboApp\Documentation\docu.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -563,7 +571,7 @@ LaTeX Font Info:    ... okay on input line 69.
 \everyMPtoPDFconversion=\toks23
 )
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 69.
+Package hyperref Info: Link coloring ON on input line 48.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -572,12 +580,12 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count121
 )
-LaTeX Info: Redefining \ref on input line 69.
-LaTeX Info: Redefining \pageref on input line 69.
-LaTeX Info: Redefining \nameref on input line 69.
+LaTeX Info: Redefining \ref on input line 48.
+LaTeX Info: Redefining \pageref on input line 48.
+LaTeX Info: Redefining \nameref on input line 48.
 
-(C:\Users\Lars\Desktop\roboApp\Documentation\docu.out)
-(C:\Users\Lars\Desktop\roboApp\Documentation\docu.out)
+(E:\Projects\roboApp\Documentation\docu.out)
+(E:\Projects\roboApp\Documentation\docu.out)
 \@outlinefile=\write3
 \c@lstlisting=\count122
 
@@ -591,7 +599,7 @@ babelbib extension \btxifchangecaseon added to \extrasenglish
 )
 cmr-font_in_spiecls
 10pt
-(C:\Users\Lars\Desktop\roboApp\Documentation\docu.toc
+(E:\Projects\roboApp\Documentation\docu.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 5.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -602,137 +610,147 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write4
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-<images/diagram.png, id=118, 544.28343pt x 192.72pt>
+{C:/Users/lars.engel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+<images/setup_overview.png, id=118, 578.16pt x 556.479pt>
+File: images/setup_overview.png Graphic file (type png)
+
+<use images/setup_overview.png>
+Package pdftex.def Info: images/setup_overview.png used on input line 72.
+(pdftex.def)             Requested size: 369.88582pt x 356.00949pt.
+ [3
+
+ <E:/Projects/roboApp/Documentation/images/setup_overview.png>] <images/diagram
+.png, id=126, 544.28343pt x 192.72pt>
 File: images/diagram.png Graphic file (type png)
- <use images/diagram.png>
-Package pdftex.def Info: images/diagram.png used on input line 97.
+
+<use images/diagram.png>
+Package pdftex.def Info: images/diagram.png used on input line 83.
 (pdftex.def)             Requested size: 426.79134pt x 151.1179pt.
 
-<images/class_roboInt.png, id=121, 651.93562pt x 195.73125pt>
+<images/class_roboInt.png, id=129, 651.93562pt x 195.73125pt>
 File: images/class_roboInt.png Graphic file (type png)
 
 <use images/class_roboInt.png>
-Package pdftex.def Info: images/class_roboInt.png used on input line 106.
+Package pdftex.def Info: images/class_roboInt.png used on input line 92.
 (pdftex.def)             Requested size: 426.79134pt x 128.14069pt.
 
-<images/class_roboMov.png, id=122, 507.39563pt x 179.16937pt>
+<images/class_roboMov.png, id=130, 507.39563pt x 179.16937pt>
 File: images/class_roboMov.png Graphic file (type png)
 
 <use images/class_roboMov.png>
-Package pdftex.def Info: images/class_roboMov.png used on input line 114.
+Package pdftex.def Info: images/class_roboMov.png used on input line 100.
 (pdftex.def)             Requested size: 341.43306pt x 120.56775pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/code_safety.png, id=124, 590.95781pt x 241.65282pt>
+<images/code_safety.png, id=133, 590.95781pt x 241.65282pt>
 File: images/code_safety.png Graphic file (type png)
 
 <use images/code_safety.png>
-Package pdftex.def Info: images/code_safety.png used on input line 121.
+Package pdftex.def Info: images/code_safety.png used on input line 108.
 (pdftex.def)             Requested size: 512.1496pt x 209.4324pt.
 
-Overfull \hbox (24.3271pt too wide) in paragraph at lines 121--123
+Overfull \hbox (24.3271pt too wide) in paragraph at lines 108--110
  [][] 
  []
 
-[3 <C:/Users/Lars/Desktop/roboApp/Documentation/images/diagram.png> <C:/Users/L
-ars/Desktop/roboApp/Documentation/images/class_roboInt.png>]
-<images/class_boPo.png, id=135, 718.18312pt x 416.30531pt>
+[4
+
+ <E:/Projects/roboApp/Documentation/images/diagram.png> <E:/Projects/roboApp/Do
+cumentation/images/class_roboInt.png>]
+<images/class_boPo.png, id=143, 718.18312pt x 416.30531pt>
 File: images/class_boPo.png Graphic file (type png)
 
 <use images/class_boPo.png>
-Package pdftex.def Info: images/class_boPo.png used on input line 130.
+Package pdftex.def Info: images/class_boPo.png used on input line 117.
 (pdftex.def)             Requested size: 426.79134pt x 247.403pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/code_points_calc.png, id=137, 696.35156pt x 56.46094pt>
+<images/code_points_calc.png, id=145, 696.35156pt x 56.46094pt>
 File: images/code_points_calc.png Graphic file (type png)
 
 <use images/code_points_calc.png>
-Package pdftex.def Info: images/code_points_calc.png used on input line 137.
+Package pdftex.def Info: images/code_points_calc.png used on input line 124.
 (pdftex.def)             Requested size: 483.69684pt x 39.21825pt.
- [4 <C:/Users/Lars/Desktop/roboApp/Documentation/images/class_roboMov.png> <C:/
-Users/Lars/Desktop/roboApp/Documentation/images/code_safety.png>] <images/class
-_lo.png, id=146, 176.91093pt x 65.49469pt>
+ [5 <E:/Projects/roboApp/Documentation/images/class_roboMov.png> <E:/Projects/r
+oboApp/Documentation/images/code_safety.png>]
+<images/class_lo.png, id=153, 176.91093pt x 65.49469pt>
 File: images/class_lo.png Graphic file (type png)
 
 <use images/class_lo.png>
-Package pdftex.def Info: images/class_lo.png used on input line 146.
+Package pdftex.def Info: images/class_lo.png used on input line 133.
 (pdftex.def)             Requested size: 113.81102pt x 42.1343pt.
-
-<images/class_moCli.png, id=148, 462.97969pt x 129.48375pt>
+ [6 <E:/Projects/roboApp/Documentation/images/class_boPo.png> <E:/Projects/robo
+App/Documentation/images/code_points_calc.png> <E:/Projects/roboApp/Documentati
+on/images/class_lo.png>]
+<images/class_moCli.png, id=162, 462.97969pt x 129.48375pt>
 File: images/class_moCli.png Graphic file (type png)
 
 <use images/class_moCli.png>
-Package pdftex.def Info: images/class_moCli.png used on input line 154.
+Package pdftex.def Info: images/class_moCli.png used on input line 141.
 (pdftex.def)             Requested size: 341.43306pt x 95.49045pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5 <C:/Users/Lars/Desktop/roboApp/Documentation/images/class_boPo.png> <C:/User
-s/Lars/Desktop/roboApp/Documentation/images/code_points_calc.png> <C:/Users/Lar
-s/Desktop/roboApp/Documentation/images/class_lo.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 164.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 151.
 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 164.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 151.
 
-<images/setup_board.png, id=158, 745.28438pt x 727.21687pt>
+<images/setup_board.png, id=166, 745.28438pt x 727.21687pt>
 File: images/setup_board.png Graphic file (type png)
 
 <use images/setup_board.png>
-Package pdftex.def Info: images/setup_board.png used on input line 166.
+Package pdftex.def Info: images/setup_board.png used on input line 153.
 (pdftex.def)             Requested size: 284.52756pt x 277.62137pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/camera_00.png, id=159, 755.82375pt x 882.29625pt>
+[7 <E:/Projects/roboApp/Documentation/images/class_moCli.png>]
+<images/camera_00.png, id=177, 755.82375pt x 882.29625pt>
 File: images/camera_00.png Graphic file (type png)
 
 <use images/camera_00.png>
-Package pdftex.def Info: images/camera_00.png used on input line 181.
+Package pdftex.def Info: images/camera_00.png used on input line 168.
 (pdftex.def)             Requested size: 426.79134pt x 498.20213pt.
- [6 <C:/Users/Lars/Desktop/roboApp/Documentation/images/class_moCli.png>]
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/communication.png, id=173, 851.43094pt x 499.8675pt>
+[8 <E:/Projects/roboApp/Documentation/images/setup_board.png>]
+<images/communication.png, id=188, 851.43094pt x 499.8675pt>
 File: images/communication.png Graphic file (type png)
 
 <use images/communication.png>
-Package pdftex.def Info: images/communication.png used on input line 194.
+Package pdftex.def Info: images/communication.png used on input line 181.
 (pdftex.def)             Requested size: 426.79134pt x 250.5662pt.
- [7 <C:/Users/Lars/Desktop/roboApp/Documentation/images/setup_board.png>] [8 <C
-:/Users/Lars/Desktop/roboApp/Documentation/images/camera_00.png>] [9 <C:/Users/
-Lars/Desktop/roboApp/Documentation/images/communication.png>] [10] [11]
-No file docu.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 218.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
-(C:\Users\Lars\Desktop\roboApp\Documentation\docu.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 218.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 218.
+ [9 <E:/Projects/roboApp/Documentation/images/camera_00.png>] [10 <E:/Projects/
+roboApp/Documentation/images/communication.png>]
+[11
+
+] [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
+ (E:\Projects\roboApp\Documentation\docu.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
 Package rerunfilecheck Info: File `docu.out' has not changed.
-(rerunfilecheck)             Checksum: 7DBE4C2892BF0D5443DFC405FA490670;1448.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
+(rerunfilecheck)             Checksum: 8D67FB6974D1B75B08C3E3D5A6F4C311;1456.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
- 8622 strings out of 493921
- 125123 string characters out of 3144879
- 222410 words of memory out of 3000000
- 11750 multiletter control sequences out of 15000+200000
+ 8651 strings out of 493921
+ 125620 string characters out of 3144861
+ 221901 words of memory out of 3000000
+ 11771 multiletter control sequences out of 15000+200000
  7944 words of font info for 28 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 37i,7n,39p,1109b,421s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,7n,39p,1111b,421s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/P
@@ -740,9 +758,9 @@ rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on docu.pdf (11 pages, 985256 bytes).
+Output written on docu.pdf (12 pages, 1019707 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
- 216 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 250 PDF objects out of 1000 (max. 8388607)
+ 53 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 
